@@ -1,0 +1,31 @@
+/* register.css */
+.auth-form {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.auth-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-form .error {
+  color: red;
+  text-align: center;
+}
+
+.auth-form .success {
+  color: green;
+  text-align: center;
+}
