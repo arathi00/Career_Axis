@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Trainer/Sidebar";
+import Sidebar from "../components/Sidebar/sidebar";
 
 const TrainerLayout = ({ children }) => {
   return (
