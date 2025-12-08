@@ -1,4 +1,6 @@
-/* Auth container */
+/* ---------------------------------------------------
+   AUTH PAGES
+--------------------------------------------------- */
 .auth-container {
   width: 100%;
   height: 100vh;
@@ -68,4 +70,254 @@
   color: red;
   font-size: 14px;
   text-align: center;
+}
+
+
+/* ---------------------------------------------------
+   LAYOUT
+--------------------------------------------------- */
+.layout-container {
+  display: flex;
+  height: 100vh;
+  background: #f8f9fc;
+}
+
+.layout-content {
+  display: flex;
+  width: 100%;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+
+/* ---------------------------------------------------
+   STUDENT DASHBOARD (FINAL UI MATCHING SCREENSHOT)
+--------------------------------------------------- */
+.student-dashboard {
+  padding: 20px;
+  background: #f8f9fc;
+}
+
+.dash-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.dash-subtitle {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.stat-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  flex: 1;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.stat-icon {
+  font-size: 26px;
+  color: #4a6cf7;
+}
+
+.stat-value {
+  font-size: 24px;
+  margin: 8px 0 2px;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Quick Actions */
+.section-title {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.quick-card {
+  background: white;
+  padding: 20px;
+  flex: 1;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e3e6ef;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4a6cf7;
+  border-radius: 10px;
+}
+
+.big {
+  height: 10px;
+}
+
+/* Learning Progress */
+.learning-progress {
+  margin-top: 25px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.progress-percent {
+  font-size: 40px;
+  margin: 8px 0;
+}
+
+.progress-text {
+  color: #555;
+  margin-top: 8px;
+}
+
+
+/* ---------------------------------------------------
+   NAVBAR
+--------------------------------------------------- */
+.navbar {
+  height: 60px;
+  background: #ffffff;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navbar-icon {
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.navbar-icon:hover {
+  color: #4a6cf7;
+}
+
+
+/* ---------------------------------------------------
+   SIDEBAR
+--------------------------------------------------- */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #ffffff;
+  padding: 20px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.08);
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 22px;
+  margin-left: 18px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-item {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  border-radius: 8px;
+  transition: 0.25s ease;
+}
+
+.sidebar-item:hover {
+  background: #f0f4ff;
+  color: #4a6cf7;
+}
+
+.sidebar-icon {
+  font-size: 18px;
+}
+
+
+/* ---------------------------------------------------
+   GRID FOR FUTURE ANALYTICS PAGE (NOT DASHBOARD)
+--------------------------------------------------- */
+.dashboard-main-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Quick Actions Section (for analytics page) */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.action-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }

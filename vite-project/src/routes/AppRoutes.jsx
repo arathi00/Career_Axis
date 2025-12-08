@@ -1,52 +1,68 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from '../pages/Auth/Login';
-import Register from '../pages/Auth/Register';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-// Placeholder dashboards (you can replace later)
-const StudentDashboard = () => <h2>Student Dashboard</h2>;
-const TrainerDashboard = () => <h2>Trainer Dashboard</h2>;
-const AdminDashboard = () => <h2>Admin Dashboard</h2>;
+/* AUTH PAGES */
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
 
-// ProtectedRoute component (simple version for now)
-const ProtectedRoute = ({ children, isAuthenticated }) => {
-  return isAuthenticated ? children : <Navigate to="/login" />;
-};
+/* STUDENT PAGES */
+import StudentDashboard from "../pages/Student/Dashboard";
+
+/* TRAINER PAGES */
+import TrainerDashboard from "../pages/Trainer/Dashboard";
+
+/* ADMIN PAGES */
+import AdminDashboard from "../pages/Admin/Dashboard";
+
+/* PROTECTED ROUTE */
+import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
-  const isAuthenticated = false; // Change to use context/hook later
+  // TEMPORARY for testing dashboard
+  // Change this back to "false" after real authentication is added
+  const isAuthenticated = true;
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+
+      {/* PUBLIC ROUTES */}
+      <Route path="/" element={<Navigate to="/student/dashboard" />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected routes example */}
+      {/* STUDENT PROTECTED ROUTES */}
       <Route
-        path="/student"
+        path="/student/dashboard"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
             <StudentDashboard />
           </ProtectedRoute>
         }
       />
+
+      {/* TRAINER PROTECTED ROUTES */}
       <Route
-        path="/trainer"
+        path="/trainer/dashboard"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
             <TrainerDashboard />
           </ProtectedRoute>
         }
       />
+
+      {/* ADMIN PROTECTED ROUTES */}
       <Route
-        path="/admin"
+        path="/admin/dashboard"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
             <AdminDashboard />
           </ProtectedRoute>
         }
       />
+
+      {/* UNKNOWN PATHS */}
+      <Route path="*" element={<Navigate to="/" />} />
+
     </Routes>
   );
 };
