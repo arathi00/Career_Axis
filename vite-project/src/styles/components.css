@@ -33,13 +33,11 @@
 .input-group {
   margin-bottom: 16px;
 }
-
 .input-group label {
   font-weight: 600;
   margin-bottom: 6px;
   display: block;
 }
-
 .input-field {
   width: 100%;
   padding: 10px;
@@ -72,174 +70,107 @@
   text-align: center;
 }
 
-
 /* ---------------------------------------------------
-   LAYOUT
+   GLOBAL LAYOUT STRUCTURE
 --------------------------------------------------- */
+
 .layout-container {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   background: #f8f9fc;
 }
 
-.layout-content {
+.layout-body {
   display: flex;
-  width: 100%;
+  flex: 1;
 }
 
+/* MAIN CONTENT */
 .layout-main {
   flex: 1;
   padding: 20px;
-  overflow-y: auto;
+  margin-left: 220px; /* space for sidebar */
+  background: #f8f9fe;
 }
-
 
 /* ---------------------------------------------------
-   STUDENT DASHBOARD (FINAL UI MATCHING SCREENSHOT)
+   FIXED TOP NAVBAR (Trainer Style)
 --------------------------------------------------- */
-.student-dashboard {
-  padding: 20px;
-  background: #f8f9fc;
-}
 
-.dash-title {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-.dash-subtitle {
-  margin-bottom: 20px;
-  color: #666;
-}
-
-/* Stats Row */
-.stats-row {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 30px;
-}
-
-.stat-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  flex: 1;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-.stat-icon {
-  font-size: 26px;
-  color: #4a6cf7;
-}
-
-.stat-value {
-  font-size: 24px;
-  margin: 8px 0 2px;
-  font-weight: bold;
-}
-
-.stat-label {
-  font-size: 14px;
-  color: #777;
-}
-
-/* Quick Actions */
-.section-title {
-  margin-top: 20px;
-  font-size: 22px;
-  font-weight: 600;
-}
-
-.section-subtitle {
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.quick-actions {
-  display: flex;
-  gap: 16px;
-}
-
-.quick-card {
-  background: white;
-  padding: 20px;
-  flex: 1;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-.progress-bar {
+.top-navbar {
   width: 100%;
-  height: 8px;
-  background: #e3e6ef;
-  margin-top: 10px;
-  border-radius: 10px;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: #4a6cf7;
-  border-radius: 10px;
-}
-
-.big {
-  height: 10px;
-}
-
-/* Learning Progress */
-.learning-progress {
-  margin-top: 25px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-.progress-percent {
-  font-size: 40px;
-  margin: 8px 0;
-}
-
-.progress-text {
-  color: #555;
-  margin-top: 8px;
-}
-
-
-/* ---------------------------------------------------
-   NAVBAR
---------------------------------------------------- */
-.navbar {
-  height: 60px;
+  height: 65px;
   background: #ffffff;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 22px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar-right {
+/* LEFT SIDE */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo {
+  width: 34px;
+  height: 34px;
+}
+
+.nav-title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nav-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #666;
+}
+
+/* RIGHT SIDE */
+.nav-right {
   display: flex;
   align-items: center;
   gap: 18px;
 }
 
-.navbar-icon {
+.nav-icon {
   font-size: 20px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s;
 }
 
-.navbar-icon:hover {
+.nav-icon:hover {
   color: #4a6cf7;
 }
 
+/* Profile Badge */
+.profile-circle {
+  width: 36px;
+  height: 36px;
+  background: #4a6cf7;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 /* ---------------------------------------------------
    SIDEBAR
 --------------------------------------------------- */
+
 .sidebar {
   width: 220px;
   height: 100vh;
@@ -247,28 +178,15 @@
   padding: 20px 0;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 65px; /* BELOW NAVBAR */
   box-shadow: 2px 0 6px rgba(0,0,0,0.08);
-  transition: width 0.3s ease;
-}
-
-.sidebar.collapsed {
-  width: 70px;
-}
-
-.sidebar-toggle {
-  background: none;
-  border: none;
-  font-size: 22px;
-  margin-left: 18px;
-  margin-bottom: 20px;
-  cursor: pointer;
 }
 
 .sidebar-menu {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .sidebar-item {
@@ -288,36 +206,168 @@
   color: #4a6cf7;
 }
 
-.sidebar-icon {
-  font-size: 18px;
+/* ---------------------------------------------------
+   DASHBOARD SHARED STYLES
+--------------------------------------------------- */
+
+.trainer-dashboard-style {
+  padding: 20px;
 }
+
+.trainer-title {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.trainer-subtitle {
+  color: #666;
+  margin-bottom: 18px;
+}
+
+/* STAT CARDS (TRAINER STYLE) */
+.trainer-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.trainer-stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #555;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* STAT CARD COLORS */
+.blue {
+  border-left: 6px solid #3b82f6;
+  background: #eaf2ff;
+}
+.green {
+  border-left: 6px solid #22c55e;
+  background: #e8faef;
+}
+.purple {
+  border-left: 6px solid #a855f7;
+  background: #f5eaff;
+}
+.orange {
+  border-left: 6px solid #fb923c;
+  background: #fff1e6;
+}
+/* ============================================
+   SINGLE ROW STUDENT TABS (5 TABS)
+============================================ */
+
+.student-tabs-one-row {
+  display: flex;
+  gap: 14px;
+  margin: 25px 0;
+  justify-content: flex-start;  /* left-aligned like Trainer Dashboard */
+}
+
+.tab-btn {
+  padding: 10px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tab-btn:hover {
+  background: #f3f4f6;
+}
+
+.tab-btn.active {
+  background: #e2e8f0;
+  border: 1px solid #cbd5e1;
+  font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* ---------------------------------------------------
-   GRID FOR FUTURE ANALYTICS PAGE (NOT DASHBOARD)
+   PROGRESS CARD
 --------------------------------------------------- */
-.dashboard-main-grid {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+
+.trainer-progress-card {
+  margin-top: 25px;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* Quick Actions Section (for analytics page) */
-.quick-actions-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-top: 20px;
+.overall-percent {
+  font-size: 36px;
+  margin: 12px 0;
 }
 
-.action-card {
-  background: #fff;
-  padding: 16px;
+.progress-message {
+  color: #555;
+}
+
+.progress-track {
+  height: 6px;
+  background: #e5e7eb;
   border-radius: 10px;
-  text-align: center;
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin-top: 10px;
+}
+
+.progress-track.large {
+  height: 10px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: #7c3aed;
+  border-radius: 10px;
+}
+
+/* ---------------------------------------------------
+   RESPONSIVE
+--------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .trainer-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .trainer-stats {
+    grid-template-columns: 1fr;
+  }
+  .tabs-row {
+    flex-wrap: wrap;
+  }
 }

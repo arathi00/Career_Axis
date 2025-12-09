@@ -1,18 +1,30 @@
 import React from "react";
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
+import "../../styles/components.css";
 
 const Navbar = () => {
   return (
-    <header className="navbar">
-      <div className="navbar-left">
-        <h2>Career Axis</h2>
+    <div className="top-navbar">
+      
+      {/* LEFT SIDE — Logo + Title */}
+      <div className="nav-left">
+        <img src="/logo192.png" alt="logo" className="nav-logo" />
+        <div>
+          <h3 className="nav-title">Career Axis</h3>
+          <p className="nav-subtitle">AI-Powered Training</p>
+        </div>
       </div>
 
-      <div className="navbar-right">
-        <FaBell className="navbar-icon" />
-        <FaUserCircle className="navbar-icon" />
+      {/* RIGHT SIDE — Notification + Profile */}
+      <div className="nav-right">
+        <FaBell className="nav-icon" />
+        
+        <div className="nav-profile">
+          <span className="profile-circle">ST</span>
+        </div>
       </div>
-    </header>
+
+    </div>
   );
 };
 

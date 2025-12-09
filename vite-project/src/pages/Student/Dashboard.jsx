@@ -1,94 +1,132 @@
-import React from "react";
+import React, { useState } from "react";
 import StudentLayout from "../../layouts/StudentLayout";
-import Card from "../../components/UI/Card";
+import "../../styles/components.css";
 
-import { FaBook, FaClock, FaCertificate, FaStar } from "react-icons/fa";
+const StudentDashboard = () => {
+  const [activeTab, setActiveTab] = useState("resume");
 
-const Dashboard = () => {
   return (
     <StudentLayout>
-      <div className="student-dashboard">
+      <div className="trainer-dashboard-style">
 
-        {/* Header */}
-        <h1 className="dash-title">Welcome back, Student!</h1>
-        <p className="dash-subtitle">Continue your journey to career success</p>
+        {/* HEADER */}
+        <h1 className="trainer-title">Welcome back, Student!</h1>
+        <p className="trainer-subtitle">Continue your journey to career success</p>
 
-        {/* Stats Section */}
-        <div className="stats-row">
-
-          <Card className="stat-box">
-            <FaBook className="stat-icon" />
-            <h3 className="stat-value">12</h3>
+        {/* ==== TRAINER-STYLE STAT CARDS ==== */}
+        <div className="trainer-stats">
+          <div className="trainer-stat-card blue">
             <p className="stat-label">Modules Completed</p>
-          </Card>
+            <h2 className="stat-value">12</h2>
+          </div>
 
-          <Card className="stat-box">
-            <FaStar className="stat-icon" />
-            <h3 className="stat-value">8.4</h3>
+          <div className="trainer-stat-card green">
             <p className="stat-label">Average Score</p>
-          </Card>
+            <h2 className="stat-value">8.4</h2>
+          </div>
 
-          <Card className="stat-box">
-            <FaClock className="stat-icon" />
-            <h3 className="stat-value">24h</h3>
+          <div className="trainer-stat-card purple">
             <p className="stat-label">Study Time</p>
-          </Card>
+            <h2 className="stat-value">24h</h2>
+          </div>
 
-          <Card className="stat-box">
-            <FaCertificate className="stat-icon" />
-            <h3 className="stat-value">3</h3>
+          <div className="trainer-stat-card orange">
             <p className="stat-label">Certifications</p>
-          </Card>
-
+            <h2 className="stat-value">3</h2>
+          </div>
         </div>
 
-        <h2 className="section-title">Quick Actions</h2>
-<p className="section-subtitle">Access all your learning tools</p>
+        {/* ==== SINGLE-ROW TABS (5 ITEMS) ==== */}
+<div className="student-tabs-one-row">
 
-<div className="quick-actions">
+  <button
+    className={`tab-btn ${activeTab === "resume" ? "active" : ""}`}
+    onClick={() => setActiveTab("resume")}
+  >
+    Resume Builder
+  </button>
 
-  <div className="quick-card">
-    <h3>Resume Builder</h3>
-    <p>Create or update your resume</p>
-    <div className="progress-bar">
-      <div className="progress-fill" style={{ width: "75%" }}></div>
-    </div>
-  </div>
+  <button
+    className={`tab-btn ${activeTab === "assessments" ? "active" : ""}`}
+    onClick={() => setActiveTab("assessments")}
+  >
+    Assessments
+  </button>
 
-  <div className="quick-card">
-    <h3>Assessments</h3>
-    <p>Attempt quizzes and improve skills</p>
-  </div>
+  <button
+    className={`tab-btn ${activeTab === "mock" ? "active" : ""}`}
+    onClick={() => setActiveTab("mock")}
+  >
+    Mock Interview
+  </button>
 
-  <div className="quick-card">
-    <h3>Mock Interview</h3>
-    <p>Practice with AI-generated interviews</p>
-  </div>
+  <button
+    className={`tab-btn ${activeTab === "chatbot" ? "active" : ""}`}
+    onClick={() => setActiveTab("chatbot")}
+  >
+    Chatbot
+  </button>
 
-  <div className="quick-card">
-    <h3>Chatbot</h3>
-    <p>Instant career guidance and help</p>
-  </div>
-
-  <div className="quick-card">
-    <h3>Analytics</h3>
-    <p>Track your performance visually</p>
-  </div>
+  <button
+    className={`tab-btn ${activeTab === "analytics" ? "active" : ""}`}
+    onClick={() => setActiveTab("analytics")}
+  >
+    Analytics
+  </button>
 
 </div>
 
+        {/* ==== TAB CONTENT AREA ==== */}
+        <div className="tab-content-area">
 
-        {/* Learning Progress */}
-        <div className="learning-progress">
+          {activeTab === "resume" && (
+            <div className="tab-card">
+              <h3>Resume Builder</h3>
+              <p>Create or update your professional resume.</p>
+            </div>
+          )}
+
+          {activeTab === "assessments" && (
+            <div className="tab-card">
+              <h3>Assessments</h3>
+              <p>Attempt quizzes and evaluate your skills.</p>
+            </div>
+          )}
+
+          {activeTab === "mock" && (
+            <div className="tab-card">
+              <h3>Mock Interviews</h3>
+              <p>Practice with AI-generated interview questions.</p>
+            </div>
+          )}
+
+          {activeTab === "chatbot" && (
+            <div className="tab-card">
+              <h3>Chatbot Assistant</h3>
+              <p>Get instant career help anytime.</p>
+            </div>
+          )}
+
+          {activeTab === "analytics" && (
+            <div className="tab-card">
+              <h3>Analytics</h3>
+              <p>Visualize your performance and progress.</p>
+            </div>
+          )}
+
+        </div>
+
+        {/* ==== PROGRESS SECTION ==== */}
+        <div className="trainer-progress-card">
           <h3>Your Overall Progress</h3>
 
-          <h1 className="progress-percent">85%</h1>
+          <h1 className="overall-percent">85%</h1>
 
-          <div className="progress-bar big">
-            <div className="progress-fill" style={{ width: "85%" }}></div>
+          <div className="progress-track large">
+            <div className="progress-bar-fill" style={{ width: "85%" }}></div>
           </div>
 
-          <p className="progress-text">
+          <p className="progress-message">
             Great progress! Keep up the excellent work.
           </p>
         </div>
@@ -98,4 +136,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default StudentDashboard;

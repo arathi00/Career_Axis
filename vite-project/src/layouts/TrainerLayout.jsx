@@ -1,13 +1,16 @@
 import React from "react";
-import Sidebar from "../components/Sidebar/sidebar";
+import Navbar from "../components/Navbar/Navbar";
 
 const TrainerLayout = ({ children }) => {
   return (
-    <div className="layout-container">
-      <Sidebar />
-      <main className="layout-content">
+    <div className="trainer-layout-wrapper">
+      {/* Top Navbar */}
+      <Navbar />
+
+      {/* Page Content */}
+      <div className="trainer-page-container">
         {children}
-      </main>
+      </div>
     </div>
   );
 };
