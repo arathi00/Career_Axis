@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import AppRoutes from './routes/AppRoutes'; // make sure this path exists
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
   return (
