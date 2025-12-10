@@ -1,0 +1,158 @@
+/* -----------------------------------------------
+   TRAINER DASHBOARD UI - FINAL WORKING VERSION
+------------------------------------------------ */
+
+.trainer-dashboard {
+  background: #f8f9fc;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 20px 0 30px;
+}
+
+.stat-card {
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-left: 4px solid transparent;
+}
+
+.stat-title {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  background: #f5f6fa;
+  padding: 6px;
+  width: fit-content;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: white;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Search bar */
+.searchbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.searchbar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.filter-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+/* Student cards */
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.student-card {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Student details */
+.student-left {
+  display: flex;
+  gap: 16px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  background: #e0e7ff;
+  color: #4339f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.student-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.student-email,
+.student-current {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.last-active {
+  font-size: 13px;
+  text-align: right;
+  color: #999;
+}
+
+/* Progress bar */
+.progress-bar {
+  width: 180px;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin: 6px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #6d28d9, #8b5cf6);
+  border-radius: 10px;
+}
+
+.modules-count {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.view-btn {
+  margin-top: 8px;
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+}

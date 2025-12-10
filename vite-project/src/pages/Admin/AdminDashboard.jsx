@@ -1,5 +1,6 @@
 import React from "react";
-import "./AdminDashboard.css";
+import "../../styles/AdminDashboard.css";
+
 import { FaUsers, FaUserTie, FaClipboardList, FaChartPie, FaBell } from "react-icons/fa";
 
 export default function AdminDashboard() {
