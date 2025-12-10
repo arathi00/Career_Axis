@@ -1,24 +1,19 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import "../styles/components.css";
 
-const StudentLayout = ({ children }) => {
+const StudentLayout = () => {
   return (
     <div className="layout-container">
-
-      {/* TOP NAVBAR */}
       <Navbar />
 
-      {/* MAIN CONTENT AREA */}
-      <div className="layout-body">
-
-        {/* LEFT SIDEBAR */}
+      <div className="layout-content">
         <Sidebar />
 
-        {/* RIGHT CONTENT */}
         <main className="layout-main">
-          {children}
+          <Outlet />   {/* 👈 THIS IS REQUIRED */}
         </main>
       </div>
     </div>
