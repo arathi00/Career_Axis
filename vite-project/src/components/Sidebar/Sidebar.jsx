@@ -26,7 +26,8 @@ const Sidebar = () => {
           {!isCollapsed && <span>Dashboard</span>}
         </Link>
 
-        <Link to="/student/resume" className="sidebar-item">
+        {/* ⭐ FIXED PATH HERE */}
+        <Link to="/student/resume-builder" className="sidebar-item">
           <FaFileAlt className="sidebar-icon" />
           {!isCollapsed && <span>Resume Builder</span>}
         </Link>
