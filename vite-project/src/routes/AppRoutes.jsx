@@ -7,20 +7,25 @@ import Register from "../pages/Auth/Register";
 
 /* STUDENT PAGES */
 import StudentDashboard from "../pages/Student/Dashboard";
+import InterviewList from "../pages/Student/Interview/InterviewList";
+import InterviewFeedback from "../pages/Student/Interview/InterviewFeedback";
 
 /* TRAINER PAGES */
 import TrainerDashboard from "../pages/Trainer/Dashboard";
+import ManageInterviews from "../pages/Trainer/ManageInterviews";
 
 /* ADMIN PAGES */
 import AdminDashboard from "../pages/Admin/Dashboard";
+
+/* LAYOUTS */
+import StudentLayout from "../layouts/StudentLayout";
+import TrainerLayout from "../layouts/TrainerLayout";
 
 /* PROTECTED ROUTE */
 import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
-  // TEMPORARY for testing dashboard
-  // Change this back to "false" after real authentication is added
-  const isAuthenticated = true;
+  const isAuthenticated = true; // TEMP
 
   return (
     <Routes>
@@ -35,7 +40,32 @@ const AppRoutes = () => {
         path="/student/dashboard"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <StudentDashboard />
+            <StudentLayout>
+              <StudentDashboard />
+            </StudentLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* STUDENT INTERVIEW ROUTES */}
+      <Route
+        path="/student/interviews"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <StudentLayout>
+              <InterviewList />
+            </StudentLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/student/interviews/history"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <StudentLayout>
+              <InterviewFeedback />
+            </StudentLayout>
           </ProtectedRoute>
         }
       />
@@ -45,12 +75,25 @@ const AppRoutes = () => {
         path="/trainer/dashboard"
         element={
           <ProtectedRoute isAuthenticated={isAuthenticated}>
-            <TrainerDashboard />
+            <TrainerLayout>
+              <TrainerDashboard />
+            </TrainerLayout>
           </ProtectedRoute>
         }
       />
 
-      {/* ADMIN PROTECTED ROUTES */}
+      <Route
+        path="/trainer/interviews"
+        element={
+          <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <TrainerLayout>
+              <ManageInterviews />
+            </TrainerLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ADMIN ROUTES */}
       <Route
         path="/admin/dashboard"
         element={

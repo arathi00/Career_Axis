@@ -301,19 +301,26 @@
 }
 
 
+/* src/styles/components.css (append) */
 
+.card { padding: 12px; border-radius: 8px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin: 8px 0; }
+.btn { padding: 8px 12px; border-radius: 6px; cursor: pointer; border: 0; background: #e2e8f0; }
+.btn-primary { background: #3b82f6; color: white; }
+.btn-danger { background: #ef4444; color: white; }
 
+.slot-card { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.slots-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
 
-
-
-
-
-
-
-
-
-
-
+.video-chat-grid { display:flex; gap:12px; flex-wrap:wrap; }
+.video-area { flex: 1 1 60%; min-width:320px; }
+.question-chat { flex: 1 1 35%; min-width:260px; display:flex; flex-direction:column; gap:8px; }
+.video-placeholder { height:320px; display:flex; align-items:center; justify-content:center; background:#0f172a; color:#fff; border-radius:6px; }
+.chat-log { max-height:200px; overflow:auto; border:1px solid #e2e8f0; padding:8px; border-radius:6px; background:#fafafa; }
+.chat-msg { margin-bottom:6px; }
+.chat-msg.trainer { text-align:left; }
+.chat-msg.student { text-align:right; }
+.chat-input { display:flex; gap:8px; margin-top:8px; }
+.chat-input input { flex:1; padding:8px; border-radius:6px; border:1px solid #e2e8f0; }
 
 /* ---------------------------------------------------
    PROGRESS CARD
