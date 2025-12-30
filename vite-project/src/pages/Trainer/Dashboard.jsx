@@ -1,129 +1,177 @@
-import React, { useState } from "react";
-import TrainerLayout from "../../layouts/TrainerLayout";
+// src/pages/Trainer/Dashboard.jsx
+import React, { useState, useEffect } from "react";
+import AssignedStudentCard from "../../components/Trainer/AssignedStudentCard";
+import InterviewItem from "../../components/Trainer/InterviewItem";
 import "../../styles/TrainerDashboard.css";
+import dashboardApi from "../../api/dashboardApi";
+import { useNavigate } from "react-router-dom";
 
 const TrainerDashboard = () => {
-  const [activeTab, setActiveTab] = useState("Students");
+  const navigate = useNavigate();
+
+  const [activeTab, setActiveTab] = useState("Interviews");
   const [search, setSearch] = useState("");
 
-  // Example temporary data (replace with API later)
-  const stats = [
-    { label: "Total Students", value: 24, color: "#5a84f7", bg: "#eaf1ff" },
-    { label: "Active Modules", value: 12, color: "#34c759", bg: "#e9f8ee" },
-    { label: "Avg Progress", value: "78%", color: "#a855f7", bg: "#f4eaff" },
-    { label: "Sessions Today", value: 6, color: "#f97316", bg: "#fff3e6" },
-  ];
+  const [stats, setStats] = useState({
+    interviewsToday: 0,
+    pendingInterviews: 0,
+    completedInterviews: 0,
+    assignedStudentsCount: 0,
+  });
 
-  const students = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      email: "sarah.j@university.edu",
-      current: "Advanced Interview Techniques",
-      progress: 85,
-      modulesDone: 8,
-      modulesTotal: 12,
-      lastActive: "2 hours ago",
-    },
-    {
-      id: 2,
-      name: "David Miller",
-      email: "david.m@university.edu",
-      current: "Technical Aptitude",
-      progress: 72,
-      modulesDone: 5,
-      modulesTotal: 10,
-      lastActive: "5 hours ago",
-    },
-  ];
+  const [upcomingInterviews, setUpcomingInterviews] = useState([]);
+  const [assignedStudents, setAssignedStudents] = useState([]);
+  const [pastInterviews, setPastInterviews] = useState([]);
+
+  /* ✅ GREETING LOGIC (FIXED) */
+  const trainerName = "Trainer"; // later from backend
+  const hour = new Date().getHours();
+  const greeting =
+    hour < 12 ? "Good Morning" :
+    hour < 18 ? "Good Afternoon" :
+    "Good Evening";
+
+  useEffect(() => {
+    let mounted = true;
+
+    dashboardApi.getTrainerDashboard().then((res) => {
+      if (!mounted) return;
+      setStats(res.stats || {});
+      setUpcomingInterviews(res.upcomingInterviews || []);
+      setAssignedStudents(res.assignedStudents || []);
+      setPastInterviews(res.pastInterviews || []);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const filteredAssigned = assignedStudents.filter((s) => {
+    const q = search.trim().toLowerCase();
+    if (!q) return true;
+
+    return (
+      s.name.toLowerCase().includes(q) ||
+      (s.email && s.email.toLowerCase().includes(q))
+    );
+  });
 
   return (
-    <TrainerLayout>
-      <div className="trainer-dashboard">
+    <div className="trainer-dashboard-style">
 
-        {/* Page Title */}
-        <h1 className="trainer-title">Trainer Dashboard</h1>
-        <p className="trainer-subtitle">Manage students and track training progress</p>
+      {/* HEADER */}
+      <h1 className="trainer-title">
+        {greeting}, {trainerName} 👋
+      </h1>
 
-        {/* Stats Cards */}
-        <div className="stats-grid">
-          {stats.map((s, index) => (
-            <div
-              key={index}
-              className="stat-card"
-              style={{ background: s.bg, borderColor: s.color }}
-            >
-              <div>
-                <p className="stat-title">{s.label}</p>
-                <h3 className="stat-value">{s.value}</h3>
-              </div>
-            </div>
-          ))}
+      {/* STATS GRID */}
+      <div className="stats-grid">
+        <div className="stat-card" style={{ "--bg": "#eaf1ff", "--color": "#3b82f6" }}>
+          <p className="stat-title">Interviews Today</p>
+          <h3 className="stat-value">{stats.interviewsToday}</h3>
         </div>
 
-        {/* Tabs */}
-        <div className="tabs">
-          {["Students", "Modules", "Assessments", "Analytics"].map((tab) => (
-            <button
-              key={tab}
-              className={`tab ${activeTab === tab ? "active" : ""}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+        <div className="stat-card" style={{ "--bg": "#fff3e6", "--color": "#fb923c" }}>
+          <p className="stat-title">Pending</p>
+          <h3 className="stat-value">{stats.pendingInterviews}</h3>
         </div>
 
-        {/* Search Bar */}
-        <div className="searchbar">
-          <input
-            type="text"
-            placeholder="Search students..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button className="filter-btn">Filter</button>
+        <div className="stat-card" style={{ "--bg": "#e9f8ee", "--color": "#10b981" }}>
+          <p className="stat-title">Completed</p>
+          <h3 className="stat-value">{stats.completedInterviews}</h3>
         </div>
 
-        {/* Students List */}
-        <div className="student-list">
-          {students.map((s) => {
-            const initials = s.name.split(" ").map((n) => n[0]).join("");
-
-            return (
-              <div key={s.id} className="student-card">
-                <div className="student-left">
-                  <div className="avatar">{initials}</div>
-                  <div>
-                    <h4 className="student-name">{s.name}</h4>
-                    <p className="student-email">{s.email}</p>
-                    <p className="student-current">Current: {s.current}</p>
-                  </div>
-                </div>
-
-                <div className="student-right">
-                  <p className="last-active">{s.lastActive}</p>
-                  <p className="progress-text">{s.progress}%</p>
-
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: `${s.progress}%` }}
-                    ></div>
-                  </div>
-
-                  <p className="modules-count">
-                    {s.modulesDone}/{s.modulesTotal} modules
-                  </p>
-
-                  <button className="view-btn">View Details</button>
-                </div>
-              </div>
-            );
-          })}
+        <div className="stat-card" style={{ "--bg": "#f4eaff", "--color": "#a855f7" }}>
+          <p className="stat-title">Assigned Students</p>
+          <h3 className="stat-value">{stats.assignedStudentsCount}</h3>
         </div>
       </div>
-    </TrainerLayout>
+
+      {/* TABS */}
+      <div className="tabs-row">
+        {["Interviews", "Assigned Students", "Past Interviews"].map((tab) => (
+          <button
+            key={tab}
+            className={`tab ${activeTab === tab ? "active" : ""}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+
+        <button className="tab" onClick={() => navigate("/trainer/interviews")}>
+          Manage Interviews
+        </button>
+      </div>
+
+      {/* SEARCH */}
+      {activeTab === "Assigned Students" && (
+        <div className="searchbar">
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search assigned students by name or email..."
+          />
+          <button className="filter-btn">Search</button>
+        </div>
+      )}
+
+      {/* UPCOMING INTERVIEWS */}
+      {activeTab === "Interviews" && (
+        <div className="tab-card card">
+          <h3>Upcoming Interviews</h3>
+          {upcomingInterviews.length === 0 ? (
+            <p className="muted">No upcoming interviews assigned to you.</p>
+          ) : (
+            upcomingInterviews.map((it) => (
+              <InterviewItem key={it.id} interview={it} />
+            ))
+          )}
+        </div>
+      )}
+
+      {/* ASSIGNED STUDENTS */}
+      {activeTab === "Assigned Students" && (
+        <div className="student-list">
+          {filteredAssigned.length === 0 ? (
+            <div className="card tab-card">No assigned students found.</div>
+          ) : (
+            filteredAssigned.map((s) => (
+              <AssignedStudentCard key={s.id} student={s} />
+            ))
+          )}
+        </div>
+      )}
+
+      {/* PAST INTERVIEWS */}
+      {activeTab === "Past Interviews" && (
+        <div className="tab-card card">
+          <h3>Past Interviews</h3>
+          {pastInterviews.length === 0 ? (
+            <p className="muted">No past interviews available.</p>
+          ) : (
+            pastInterviews.map((p) => (
+              <div key={p.id} className="student-card">
+                <div className="avatar">
+                  {p.studentName
+                    .split(" ")
+                    .map((n) => n[0])
+                    .slice(0, 2)
+                    .join("")}
+                </div>
+                <div>
+                  <div className="student-name">{p.studentName}</div>
+                  <div className="muted">{p.date}</div>
+                  <div className="muted">Score: {p.score}</div>
+                  <div>{p.feedback}</div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 

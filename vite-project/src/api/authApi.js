@@ -1,4 +1,9 @@
 import axiosInstance from './axiosConfig';
 
-export const loginUser = (data) => axiosInstance.post('/auth/login', data);
-export const registerUser = (data) => axiosInstance.post('/auth/register', data);
+const API = "http://127.0.0.1:8000/auth";
+
+export const registerUser = (data) =>
+  axios.post(`${API}/register`, data);
+
+export const loginUser = (data) =>
+  axios.post(`${API}/login`, data);

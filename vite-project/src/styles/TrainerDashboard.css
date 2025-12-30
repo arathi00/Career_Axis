@@ -1,158 +1,372 @@
-/* -----------------------------------------------
-   TRAINER DASHBOARD UI - FINAL WORKING VERSION
------------------------------------------------- */
+/* ----------------------------------------------------
+   TRAINER DASHBOARD — FINAL CLEANED + SPACING FIXED CSS
+------------------------------------------------------*/
 
-.trainer-dashboard {
-  background: #f8f9fc;
+:root {
+  --muted: #6b7280;
 }
 
-/* Stats grid */
+/* --------------------------
+   MAIN PAGE CONTAINER
+--------------------------- */
+.trainer-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 0 /* reduced spacing */
+}
+
+/* Remove default white space above content */
+.content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* --------------------------
+   TITLES
+--------------------------- */
+/* Title spacing */
+.trainer-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 0 !important;
+  margin-bottom: 2px !important;  /* FIX: reduce space */
+}
+
+/* Subtitle spacing */
+.trainer-subtitle {
+  color: var(--muted);
+  margin: 0 0 4px !important;     /* FIX: reduce space */
+  font-size: 14px;
+}
+
+/* Stats grid spacing */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin: 20px 0 30px;
+  gap: 14px;
+  margin-top: 2px !important;     /* FIX: reduce space */
+  margin-bottom: 12px !important;
+}
+
+
+/* --------------------------
+   STAT CARDS GRID
+--------------------------- */
+/* Stats grid spacing */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 2px !important;     /* FIX: reduce space */
+  margin-bottom: 12px !important;
 }
 
 .stat-card {
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  border-left: 4px solid transparent;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--bg, #ffffff);
+  border-left: 5px solid var(--color, #ccc);
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
 }
 
 .stat-title {
-  font-size: 14px;
-  color: #6b7280;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
 }
 
 .stat-value {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
+  margin: 6px 0 0;
 }
 
-/* Tabs */
-.tabs {
+/* --------------------------
+   TABS
+--------------------------- */
+.tabs-row {
   display: flex;
-  gap: 8px;
-  background: #f5f6fa;
-  padding: 6px;
-  width: fit-content;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 12px !important;
+  margin-top: 6px !important; /* pulls tabs closer to stats */
 }
 
 .tab {
-  padding: 10px 16px;
-  border: none;
-  background: transparent;
+  padding: 8px 14px;
   border-radius: 8px;
+  background: #f5f6fa;
+  border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .tab.active {
-  background: white;
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-/* Search bar */
+/* --------------------------
+   SEARCH BAR
+--------------------------- */
 .searchbar {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 14px !important; /* reduced */
 }
 
 .searchbar input {
   flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
 }
 
 .filter-btn {
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: white;
-  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  background: #ffffff;
+  cursor: pointer;
 }
 
-/* Student cards */
+/* --------------------------
+   STUDENT LIST / CARDS
+--------------------------- */
 .student-list {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .student-card {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   background: white;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(15,23,42,0.04);
 }
 
-/* Student details */
 .student-left {
   display: flex;
-  gap: 16px;
+  gap: 12px;
+  align-items: center;
 }
 
 .avatar {
   width: 48px;
   height: 48px;
-  background: #e0e7ff;
-  color: #4339f2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.student-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.student-email,
+.student-current,
+.muted {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* --------------------------
+   RIGHT SIDE
+--------------------------- */
+.student-right {
+  text-align: right;
+  min-width: 160px;
+}
+
+.last-active {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.progress-text {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+/* --------------------------
+   PROGRESS BAR
+--------------------------- */
+.progress-bar {
+  width: 160px;
+  height: 8px;
+  background: #e9eaee;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+}
+
+/* --------------------------
+   CARD UTILS
+--------------------------- */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.tab-card {
+  padding: 12px;
+}
+
+.view-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  background: white;
+  cursor: pointer;
+}
+
+/* --------------------------
+   PAGE HEADER
+--------------------------- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px !important; /* reduced */
+}
+
+.create-slot-btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.create-slot-btn:hover {
+  background: #1d4ed8;
+}
+
+/* --------------------------
+   MODAL
+--------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;
+  max-width: 90%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  z-index: 1100;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -55%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-container input,
+.modal-container select,
+.modal-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0 16px 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-buttons button {
+  width: 48%;
+}
+
+/* --------------------------
+   RESPONSIVE
+--------------------------- */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .student-right {
+    min-width: 120px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+.nav-icon {
+  padding: 8px;
+  border-radius: 50%;
+  background: #f1f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease;
+}
+
+.nav-icon:hover {
+  background: #e4e9ff;
+}
+
+.profile-circle {
+  width: 36px;
+  height: 36px;
+  background: #4a6cf7;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   font-weight: 700;
-}
-
-.student-name {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.student-email,
-.student-current {
-  font-size: 14px;
-  color: #6b7280;
-}
-
-.last-active {
-  font-size: 13px;
-  text-align: right;
-  color: #999;
-}
-
-/* Progress bar */
-.progress-bar {
-  width: 180px;
-  height: 8px;
-  background: #e5e7eb;
-  border-radius: 10px;
-  margin: 6px 0;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(to right, #6d28d9, #8b5cf6);
-  border-radius: 10px;
-}
-
-.modules-count {
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.view-btn {
-  margin-top: 8px;
-  padding: 8px 14px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 4px;
 }
