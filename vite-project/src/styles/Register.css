@@ -1,31 +1,226 @@
-/* register.css */
-.auth-form {
-  max-width: 450px;
-  margin: 50px auto;
-  padding: 35px;
+/* ========== RESET (same as login) ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ========== FULL SCREEN WRAPPER ========== */
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #4f46e5 0%,
+    #7e22ce 50%,
+    #db2777 100%
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 8s ease infinite;
+  padding: 32px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ========== CARD ========== */
+.register-card {
+  width: 100%;
+  max-width: 1100px;
   background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  border-radius: 18px;
+  padding: 42px;
+  box-shadow:
+    0 18px 46px rgba(79,70,229,0.14),
+    0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.auth-form h2 {
+.register-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 22px 60px rgba(79,70,229,0.18),
+    0 14px 36px rgba(0,0,0,0.1);
+}
+
+/* ========== HEADER ========== */
+.register-card h2 {
   text-align: center;
-  margin-bottom: 25px;
-  color: #333;
+  font-size: 28px;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 36px;
 }
 
-.auth-form form {
+/* ========== GRID LAYOUT ========== */
+.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+/* Columns */
+.form-column {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
-.auth-form .error {
-  color: red;
-  text-align: center;
+/* ========== INPUTS & SELECTS ========== */
+.register-grid input,
+.register-grid select {
+  width: 100%;
+  padding: 16px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e1e6ef;
+  background: #fbfcfd;
+  font-size: 15px;
+  color: #222;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.auth-form .success {
-  color: green;
-  text-align: center;
+.register-grid input:focus,
+.register-grid select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+/* Read-only fields */
+.register-grid input[readonly] {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* ========== SKILLS SECTION (FULL WIDTH) ========== */
+.skills-full {
+  grid-column: span 2;
+}
+
+.skills-full label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4f46e5;
+  margin-bottom: 10px;
+}
+
+/* Skill suggestions (improved for large lists) */
+.skill-suggestions {
+  margin-top: 8px;
+  background: #fbfcfd;
+  border: 1px solid #e6e9ef;
+  border-radius: 12px;
+  max-height: 220px;              /* important */
+  overflow-y: auto;               /* scroll */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* desktop two columns */
+}
+
+/* Scrollbar styling */
+.skill-suggestions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.skill-suggestions::-webkit-scrollbar-thumb {
+  background: #c7d2fe;
+  border-radius: 6px;
+}
+
+.skill-suggestions div {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.skill-suggestions div:hover {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+/* Skill box */
+.skill-box {
+  margin-top: 14px;
+  min-height: 60px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1.5px dashed #c7d2fe;
+  background: #f8faff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Skill chips */
+.skill-chip {
+  background: linear-gradient(90deg, #4f46e5, #7e22ce);
+  color: #ffffff;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.skill-chip button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* ========== REGISTER BUTTON ========== */
+.register-btn {
+  grid-column: span 2;
+  margin-top: 32px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .register-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-full,
+  .register-btn {
+    grid-column: span 1;
+  }
+
+  .register-card {
+    padding: 32px;
+  }
+
+  .skill-suggestions {
+    grid-template-columns: 1fr; /* single column on tablet/mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .register-card h2 {
+    font-size: 24px;
+  }
+
+  .register-grid input,
+  .register-grid select {
+    padding: 14px 12px;
+  }
+}
+
+
+.error-text {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 4px;
 }

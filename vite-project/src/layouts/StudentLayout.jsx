@@ -6,17 +6,13 @@ import "../styles/components.css";
 const StudentLayout = ({ children }) => {
   return (
     <div className="layout-container">
-
       {/* TOP NAVBAR */}
       <Navbar />
 
-      {/* MAIN CONTENT AREA */}
+      {/* BODY: SIDEBAR + CONTENT */}
       <div className="layout-body">
+              <Sidebar role="student" />
 
-        {/* LEFT SIDEBAR */}
-        <Sidebar />
-
-        {/* RIGHT CONTENT */}
         <main className="layout-main">
           {children}
         </main>
