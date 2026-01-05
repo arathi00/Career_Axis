@@ -11,7 +11,9 @@ class StudentProfile(Base):
     college = Column(String, nullable=False)
     course = Column(String, nullable=False)
     branch = Column(String, nullable=False)
-    currentyear = Column(String, nullable=False)
-    graduationyear = Column(Integer, nullable=False)
+    # use snake_case column names so they map to the DB columns
+    # (avoid forcing a different column name which may not exist)
+    current_year = Column(String, nullable=False)
+    graduation_year = Column(Integer, nullable=False)
     cgpa = Column(Float, nullable=False)
-    skills = Column(ARRAY(String))
+    skills = Column(ARRAY(String), nullable=True)

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from typing import List
 
 from app.schemas.auth import RegisterSchema, LoginSchema
 from app.models.user import User
@@ -9,7 +10,6 @@ from app.core.security import hash_password, verify_password
 from app.core.config import create_token
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
-
 
 # =========================
 # REGISTER
@@ -24,7 +24,12 @@ def register(data: RegisterSchema, db: Session = Depends(get_db)):
         )
 
     try:
-        # 2️⃣ Create user
+        # 2️⃣ Convert graduation_year and cgpa to correct types
+        graduation_year = int(data.graduation_year)
+        cgpa = float(data.cgpa)
+        skills: List[str] = data.skills or []
+
+        # 3️⃣ Create user
         new_user = User(
             name=data.name,
             email=data.email,
@@ -35,7 +40,7 @@ def register(data: RegisterSchema, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(new_user)
 
-        # 3️⃣ Create student profile
+        # 4️⃣ Create student profile
         profile = StudentProfile(
             user_id=new_user.id,
             university=data.university,
@@ -43,19 +48,19 @@ def register(data: RegisterSchema, db: Session = Depends(get_db)):
             course=data.course,
             branch=data.branch,
             current_year=data.current_year,
-            graduation_year=data.graduation_year,
-            cgpa=data.cgpa,
-            skills=",".join(data.skills) if data.skills else ""
+            graduation_year=graduation_year,
+            cgpa=cgpa,
+            skills=skills
         )
-
         db.add(profile)
         db.commit()
 
     except Exception as e:
         db.rollback()
+        # Show backend error for debugging (mask in production)
         raise HTTPException(
-            status_code=500,
-            detail="Registration failed"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Registration failed: {e}"
         )
 
     return {

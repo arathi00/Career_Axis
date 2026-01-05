@@ -1,11 +1,19 @@
-from pydantic import BaseModel, Field, EmailStr, ConfigDict
+from pydantic import BaseModel, Field
 from typing import List
 
+# detect pydantic v2 at import time
+try:
+    from pydantic import ConfigDict  # type: ignore
+    _PYDANTIC_V2 = True
+except Exception:
+    _PYDANTIC_V2 = False
+
+
 class RegisterSchema(BaseModel):
-    model_config = ConfigDict(validate_by_name=True)
+    # Use Field aliases for incoming camelCase JSON. No special config required.
 
     name: str
-    email: EmailStr
+    email: str
     password: str
 
     university: str
@@ -20,5 +28,5 @@ class RegisterSchema(BaseModel):
 
 
 class LoginSchema(BaseModel):
-    email: EmailStr
+    email: str
     password: str
