@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/components.css";
 
@@ -12,7 +12,17 @@ import {
 
 const StudentDashboard = () => {
 
-  const studentName = "Student"; // later from backend
+  // 🔹 ADDED: get logged-in user from localStorage
+  const [studentName, setStudentName] = useState("Student");
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setStudentName(user.name);
+    }
+  }, []);
+
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? "Good Morning" :

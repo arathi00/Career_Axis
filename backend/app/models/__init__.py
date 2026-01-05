@@ -5,3 +5,4 @@ from app.models.quiz import Quiz
 from app.models.interview import Interview
 from app.models.chatbot_log import ChatbotLog
 from app.models.dashboard import Dashboard
+from app.models.student_profile import StudentProfile

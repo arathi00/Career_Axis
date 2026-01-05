@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-/* AUTH PAGES */
+/* AUTH */
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 
-/* STUDENT PAGES */
+/* STUDENT */
 import StudentDashboard from "../pages/Student/Dashboard";
 import InterviewList from "../pages/Student/Interview/InterviewList";
 import InterviewFeedback from "../pages/Student/Interview/InterviewFeedback";
@@ -16,38 +16,43 @@ import QuizzReview from "../pages/Student/Quiz/QuizzReview";
 import QuizzResult from "../pages/Student/Quiz/QuizzResult";
 import Analytics from "../pages/Student/Analytics/AnalyticsProgress";
 
-/* TRAINER PAGES */
+/* TRAINER */
 import TrainerDashboard from "../pages/Trainer/Dashboard";
 import ManageInterviews from "../pages/Trainer/ManageInterviews";
 
-/* ADMIN PAGES */
+/* ADMIN */
 import AdminDashboard from "../pages/Admin/Dashboard";
 
 /* LAYOUTS */
 import StudentLayout from "../layouts/StudentLayout";
 import TrainerLayout from "../layouts/TrainerLayout";
 
-/* PROTECTED ROUTE */
+/* AUTH GUARD */
 import ProtectedRoute from "./ProtectedRoute";
 
 const AppRoutes = () => {
-  const isAuthenticated = true; // TEMP
-
   return (
     <Routes>
 
-      {/* PUBLIC ROUTES */}
-      <Route path="/" element={<Navigate to="/student/dashboard" />} />
+      {/* ROOT */}
+      <Route
+        path="/"
+        element={
+          localStorage.getItem("token")
+            ? <Navigate to="/student/dashboard" />
+            : <Navigate to="/login" />
+        }
+      />
+
+      {/* PUBLIC */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* ===========================
-          STUDENT PROTECTED ROUTES
-      ============================ */}
+      {/* ================= STUDENT ================= */}
       <Route
         path="/student/dashboard"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <StudentDashboard />
             </StudentLayout>
@@ -55,11 +60,10 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Resume */}
       <Route
         path="/student/resume"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <h1>Resume Builder Coming Soon</h1>
             </StudentLayout>
@@ -67,11 +71,10 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Assessments + Quiz System */}
       <Route
         path="/student/quiz"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <QuizzList />
             </StudentLayout>
@@ -82,7 +85,7 @@ const AppRoutes = () => {
       <Route
         path="/student/quiz/:id"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <QuizzAttempt />
             </StudentLayout>
@@ -93,7 +96,7 @@ const AppRoutes = () => {
       <Route
         path="/student/quiz/review"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <QuizzReview />
             </StudentLayout>
@@ -104,7 +107,7 @@ const AppRoutes = () => {
       <Route
         path="/student/quiz/result"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <QuizzResult />
             </StudentLayout>
@@ -112,11 +115,10 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Mock Interview */}
       <Route
         path="/student/interview"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <InterviewList />
             </StudentLayout>
@@ -127,7 +129,7 @@ const AppRoutes = () => {
       <Route
         path="/student/interview/feedback"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <InterviewFeedback />
             </StudentLayout>
@@ -135,11 +137,10 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Chatbot */}
       <Route
         path="/student/chatbot"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
               <Chatbot />
             </StudentLayout>
@@ -147,26 +148,22 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Analytics */}
       <Route
         path="/student/analytics"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <StudentLayout>
-  <Analytics />
-</StudentLayout>
-
+              <Analytics />
+            </StudentLayout>
           </ProtectedRoute>
         }
       />
 
-      {/* ===========================
-          TRAINER PROTECTED ROUTES
-      ============================ */}
+      {/* ================= TRAINER ================= */}
       <Route
         path="/trainer/dashboard"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <TrainerLayout>
               <TrainerDashboard />
             </TrainerLayout>
@@ -177,7 +174,7 @@ const AppRoutes = () => {
       <Route
         path="/trainer/interviews"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <TrainerLayout>
               <ManageInterviews />
             </TrainerLayout>
@@ -185,20 +182,19 @@ const AppRoutes = () => {
         }
       />
 
-      {/* ===========================
-          ADMIN PROTECTED ROUTES
-      ============================ */}
+      {/* ================= ADMIN ================= */}
       <Route
         path="/admin/dashboard"
         element={
-          <ProtectedRoute isAuthenticated={isAuthenticated}>
+          <ProtectedRoute>
             <AdminDashboard />
           </ProtectedRoute>
         }
       />
 
-      {/* UNKNOWN PATHS */}
+      {/* FALLBACK */}
       <Route path="*" element={<Navigate to="/" />} />
+
     </Routes>
   );
 };

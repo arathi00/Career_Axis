@@ -1,15 +1,37 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ role = "student", userName = "Arathi" }) => {
+const Navbar = ({ role = "student", userName = "Student" }) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // 🔹 get logged-in user
+  const [displayName, setDisplayName] = useState(userName);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setDisplayName(user.name);
+    }
+  }, []);
+
+  // 🔹 LOGOUT HANDLER (ADDED)
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("token_type");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">
       {/* Left */}
       <div className="navbar-left">
-        <div className="logo">Career<span>Axis</span></div>
+        <div className="logo">
+          Career<span>Axis</span>
+        </div>
       </div>
       
       {/* Right */}
@@ -20,16 +42,20 @@ const Navbar = ({ role = "student", userName = "Arathi" }) => {
 
         <div className="profile" onClick={() => setOpen(!open)}>
           <div className="avatar">
-            {userName.charAt(0).toUpperCase()}
+            {displayName.charAt(0).toUpperCase()}
           </div>
-          <span>{userName}</span>
+          <span>{displayName}</span>
         </div>
 
         {open && (
           <div className="dropdown">
             <Link to="/profile">Profile</Link>
             <Link to="/settings">Settings</Link>
-            <button className="logout">Logout</button>
+
+            {/* 🔹 LOGOUT BUTTON FIXED */}
+            <button className="logout" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         )}
       </div>
