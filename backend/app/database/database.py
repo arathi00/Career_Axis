@@ -1,5 +1,4 @@
 from sqlalchemy import create_engine
+from app.core.config import settings
 
-DATABASE_URL = "postgresql://postgres:main_project@localhost/career_axis"
-
-engine = create_engine(DATABASE_URL)
+engine = create_engine(settings.DATABASE_URL, echo=True)

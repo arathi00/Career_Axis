@@ -8,6 +8,7 @@ import "./styles/components.css";
 // IMPORT AUTH PROVIDER
 import { AuthProvider } from "./context/AuthContext";
 
+
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

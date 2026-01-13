@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/components.css";
+import dashboardApi from "../../api/dashboardApi";
 
 import {
   FaFileAlt,
@@ -10,9 +11,35 @@ import {
   FaChartPie,
 } from "react-icons/fa";
 
+
+
 const StudentDashboard = () => {
 
-  const studentName = "Student"; // later from backend
+  // 🔹 ADDED: get logged-in user from localStorage
+  const [studentName, setStudentName] = useState("Student");
+  const [dashboardData, setDashboardData] = useState(null);
+
+useEffect(() => {
+  const fetchDashboard = async () => {
+    try {
+      const data = await dashboardApi.getStudentDashboard();
+      setDashboardData(data);
+    } catch (error) {
+      console.error("Failed to load student dashboard", error);
+    }
+  };
+
+  fetchDashboard();
+}, []);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setStudentName(user.name);
+    }
+  }, []);
+
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? "Good Morning" :
@@ -34,18 +61,22 @@ const StudentDashboard = () => {
       {/* STATS */}
       <div className="trainer-stats">
         <div className="trainer-stat-card blue">
-          <p className="stat-label">Modules Completed</p>
-          <h2 className="stat-value">12</h2>
+          <h2 className="stat-value">
+            {dashboardData?.summary?.modulesCompleted ?? "--"}
+          </h2>
+
         </div>
 
         <div className="trainer-stat-card green">
-          <p className="stat-label">Average Score</p>
-          <h2 className="stat-value">8.4</h2>
+          <h2 className="stat-value">
+  {dashboardData?.summary?.avgScore ?? "--"}
+</h2>
         </div>
 
         <div className="trainer-stat-card purple">
-          <p className="stat-label">Study Time</p>
-          <h2 className="stat-value">24h</h2>
+          <h2 className="stat-value">
+  {dashboardData?.summary?.studyHours ?? "--"}
+</h2>
         </div>
       </div>
 
@@ -67,7 +98,7 @@ const StudentDashboard = () => {
           <p>Create or update your professional resume</p>
         </Link>
 
-        <Link to="/student/quiz" className="student-action-card">
+        <Link to="/student/assessments" className="student-action-card">
           <FaClipboardList className="action-icon blue" />
           <h4>Assessments</h4>
           <p>Attempt quizzes and evaluate skills</p>

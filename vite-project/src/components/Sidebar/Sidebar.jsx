@@ -7,7 +7,7 @@ const Sidebar = ({ role = "student" }) => {
     student: [
       { path: "/student/dashboard", label: "Dashboard", icon: "🏠" },
       { path: "/student/resume", label: "Resume Builder", icon: "📄" },
-      { path: "/student/quizzes", label: "Quizzes", icon: "📝" },
+      { path: "/student/assessments", label: "Quizzes", icon: "📝" },
       { path: "/student/interviews", label: "Interviews", icon: "🎤" },
       { path: "/student/chatbot", label: "Chatbot", icon: "🤖" },
       { path: "/student/analytics", label: "Analytics", icon: "📊" },
