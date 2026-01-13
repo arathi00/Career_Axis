@@ -1,22 +1,46 @@
 import React, { useState, useEffect } from "react";
 import "@/styles/QuizStyles.css";
 import { useParams, useNavigate } from "react-router-dom";
-import "@/utils/questionsData.js";
+import { fetchQuizById } from "@/api/quizApi";  
+
+  
 
 export default function QuizzAttempt() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // MAP ID → Topic Key
-  const topicKey =
-    id === "1" ? "aptitude" :
-    id === "2" ? "java" :
-    "python";
+  // QUESTIONS: fetched from backend
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const questions = questionsData[topicKey] || [];
+  // fetch quiz by id
+  useEffect(() => {
+    let mounted = true;
+    setLoading(true);
+    fetchQuizById(id)
+      .then((data) => {
+        if (mounted) setQuestions(data.questions || []);
+      })
+      .catch((err) => {
+        if (mounted) setError(err.message || "Failed to load quiz");
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+    return () => (mounted = false);
+  }, [id]);
 
   // TIMER (10 minutes)
-  const [timeLeft, setTimeLeft] = useState(600);
+  const INITIAL_TIME = 600; // seconds
+  const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
+  const startRef = React.useRef(Date.now());
+
+  const formatTime = (sec) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s < 10 ? "0" : ""}${s}`;
+  };
 
   // QUIZ STATES
   const [index, setIndex] = useState(0);
@@ -40,13 +64,11 @@ export default function QuizzAttempt() {
     return () => clearInterval(t);
   }, [timeLeft]);
 
-  const q = questions[index];
+  if (loading) return <div>Loading quiz...</div>;
+  if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
+  if (!loading && questions.length === 0) return <div>No questions available</div>;
 
-  const formatTime = (sec) => {
-    const m = Math.floor(sec / 60);
-    const s = sec % 10;
-    return `${m}:${s < 10 ? "0" : ""}${s}`;
-  };
+  const q = questions[index];
 
   const handleNext = () => {
     if (index < questions.length - 1) setIndex(index + 1);
@@ -60,14 +82,46 @@ export default function QuizzAttempt() {
   const handleSubmit = () => {
     let score = 0;
 
-    questions.forEach((q, i) => {
+    const qa = questions.map((q, i) => {
       if (selected[i] === q.answer) score++;
+      return {
+        q: q.q,
+        options: q.options,
+        answer: q.answer,
+        explanation: q.explanation || `Correct answer: ${q.options[q.answer]}`,
+      };
     });
 
+    // clear autosaved progress
     localStorage.removeItem("quiz-progress");
 
+    // compute time taken (seconds)
+    const timeTakenSec = Math.max(0, INITIAL_TIME - timeLeft);
+
+    // build attempt record and persist to localStorage
+    const attempt = {
+      quizId: Number(id),
+      title: questions[0]?.title || `Quiz ${id}`,
+      score,
+      total: questions.length,
+      percentage: questions.length ? Math.round((score / questions.length) * 100) : 0,
+      timeTakenSec,
+      date: new Date().toISOString(),
+      qa,
+      selectedAnswers: Object.keys(selected).length ? selected : undefined,
+    };
+
+    try {
+      const existing = JSON.parse(localStorage.getItem("quiz_attempts") || "[]");
+      existing.unshift(attempt); // latest first
+      localStorage.setItem("quiz_attempts", JSON.stringify(existing));
+    } catch (err) {
+      console.error("Failed to save quiz attempt", err);
+    }
+
+    // pass attempt to results page so it can display immediately
     navigate("/student/quiz/result", {
-      state: { score, total: questions.length },
+      state: { score, total: questions.length, attempt },
     });
   };
 
