@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../pages/Student/Resume/Resume.css';
+import FreeAIEnhancer from './FreeAIEnhancer.jsx';
 
 const ResumeForm = ({ 
   templateType, 
@@ -24,15 +25,15 @@ const ResumeForm = ({
     const autoFilled = {
       name: !!resumeData.name,
       email: !!resumeData.email,
-      phone: !!resumeData.phone,
-      location: !!resumeData.location,
+      phone: false,                    // CHANGED: Disable auto-fill for phone
+      location: false,                 // CHANGED: Disable auto-fill for location
       education: resumeData.education.length > 0 && 
                 (!!resumeData.education[0].school || 
                  !!resumeData.education[0].branch),
       skills: !!resumeData.skills,
       summary: !!resumeData.summary,
-      linkedin: !!resumeData.linkedin,
-      github: !!resumeData.github
+      linkedin: false,                 // CHANGED: Disable auto-fill for linkedin
+      github: false                    // CHANGED: Disable auto-fill for github
     };
     setAutoFilledFields(autoFilled);
   }, [resumeData]);
@@ -95,6 +96,14 @@ const ResumeForm = ({
     setResumeData(updatedData);
   };
 
+  // ADD THIS NEW FUNCTION for simpler field changes
+  const handleSimpleChange = (field, value) => {
+    setResumeData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   const addEntry = (section) => {
     const template = {
       education: { school: '', branch: '', cgpa: '', year: '' },
@@ -108,15 +117,30 @@ const ResumeForm = ({
     });
   };
 
-  const removeEntry = (section, index) => {
-    if (section === 'education' && resumeData.education.length <= 1) {
-      alert('At least one education entry is required');
-      return;
-    }
+  // const removeEntry = (section, index) => {
+  //   if (section === 'education' && resumeData.education.length <= 1) {
+  //     alert('At least one education entry is required');
+  //     return;
+  //   }
     
-    const updatedEntries = resumeData[section].filter((_, i) => i !== index);
-    setResumeData({...resumeData, [section]: updatedEntries});
-  };
+  //   const updatedEntries = resumeData[section].filter((_, i) => i !== index);
+  //   setResumeData({...resumeData, [section]: updatedEntries});
+  // };
+  const removeEntry = (section, index) => {
+  // Don't allow removing the first education entry (registration data)
+  if (section === 'education' && index === 0) {
+    alert('This education entry is from your registration and cannot be removed');
+    return;
+  }
+  
+  if (section === 'education' && resumeData.education.length <= 1) {
+    alert('At least one education entry is required');
+    return;
+  }
+  
+  const updatedEntries = resumeData[section].filter((_, i) => i !== index);
+  setResumeData({...resumeData, [section]: updatedEntries});
+};
 
   return (
     <div className="form-section">
@@ -232,56 +256,48 @@ const ResumeForm = ({
           />
         </div>
 
-        <div className={`form-group ${autoFilledFields.phone ? 'auto-filled' : ''}`}>
-          <label>
-            Phone *
-            {autoFilledFields.phone && <span className="auto-fill-indicator">Auto-filled</span>}
-          </label>
+        {/* Phone Field - FIXED */}
+        <div className="form-group">
+          <label>Phone *</label>
           <input
             type="tel"
-            value={resumeData.phone}
-            onChange={(e) => handleInputChange('phone', null, null, e.target.value)}
-            placeholder="+1 (123) 456-7890"
+            value={resumeData.phone || ''}
+            onChange={(e) => handleSimpleChange('phone', e.target.value)}
+            placeholder="+91 12345 67890"
             required
           />
         </div>
 
-        <div className={`form-group ${autoFilledFields.location ? 'auto-filled' : ''}`}>
-          <label>
-            Location (City, State) *
-            {autoFilledFields.location && <span className="auto-fill-indicator">Auto-filled</span>}
-          </label>
+        {/* Location Field - FIXED */}
+        <div className="form-group">
+          <label>Location (City, State) *</label>
           <input
             type="text"
-            value={resumeData.location}
-            onChange={(e) => handleInputChange('location', null, null, e.target.value)}
-            placeholder="New York, NY"
+            value={resumeData.location || ''}
+            onChange={(e) => handleSimpleChange('location', e.target.value)}
+            placeholder="Trivandum, Kerala"
             required
           />
         </div>
 
-        <div className={`form-group ${autoFilledFields.linkedin ? 'auto-filled' : ''}`}>
-          <label>
-            LinkedIn URL
-            {autoFilledFields.linkedin && <span className="auto-fill-indicator">Auto-filled</span>}
-          </label>
+        {/* LinkedIn Field - FIXED */}
+        <div className="form-group">
+          <label>LinkedIn URL</label>
           <input
             type="url"
-            value={resumeData.linkedin}
-            onChange={(e) => handleInputChange('linkedin', null, null, e.target.value)}
+            value={resumeData.linkedin || ''}
+            onChange={(e) => handleSimpleChange('linkedin', e.target.value)}
             placeholder="https://linkedin.com/in/username"
           />
         </div>
 
-        <div className={`form-group ${autoFilledFields.github ? 'auto-filled' : ''}`}>
-          <label>
-            GitHub / Portfolio URL
-            {autoFilledFields.github && <span className="auto-fill-indicator">Auto-filled</span>}
-          </label>
+        {/* GitHub Field - FIXED */}
+        <div className="form-group">
+          <label>GitHub / Portfolio URL</label>
           <input
             type="url"
-            value={resumeData.github}
-            onChange={(e) => handleInputChange('github', null, null, e.target.value)}
+            value={resumeData.github || ''}
+            onChange={(e) => handleSimpleChange('github', e.target.value)}
             placeholder="https://github.com/username"
           />
         </div>
@@ -300,7 +316,7 @@ const ResumeForm = ({
         </div>
 
         {/* Education Section */}
-        <div className="section-block">
+        {/* <div className="section-block">
           <h3>
             Education Details
             <button className="add-btn" onClick={() => addEntry('education')}>
@@ -368,7 +384,94 @@ const ResumeForm = ({
               )}
             </div>
           ))}
-        </div>
+        </div> */}
+
+        <div className="section-block">
+  <h3>
+    Education Details
+    <button className="add-btn" onClick={() => addEntry('education')}>
+      + Add Education
+    </button>
+  </h3>
+  {resumeData.education.map((edu, index) => (
+    <div key={index} className="entry-item">
+      {/* School/College - READ-ONLY for first entry */}
+      <div className={`form-group ${autoFilledFields.education && index === 0 ? 'auto-filled read-only' : ''}`}>
+        <label>
+          School/College Name *
+          {autoFilledFields.education && index === 0 && <span className="auto-fill-indicator">Auto-filled (Read-only)</span>}
+        </label>
+        <input
+          type="text"
+          value={edu.school}
+          onChange={(e) => handleInputChange('education', index, 'school', e.target.value)}
+          placeholder="University of Example"
+          required
+          readOnly={index === 0}
+          className={index === 0 ? 'read-only-input' : ''}
+        />
+      </div>
+      
+      {/* Branch - READ-ONLY for first entry */}
+      <div className={`form-group ${autoFilledFields.education && index === 0 ? 'auto-filled read-only' : ''}`}>
+        <label>
+          Branch/Field of Study *
+          {autoFilledFields.education && index === 0 && <span className="auto-fill-indicator">Auto-filled (Read-only)</span>}
+        </label>
+        <input
+          type="text"
+          value={edu.branch}
+          onChange={(e) => handleInputChange('education', index, 'branch', e.target.value)}
+          placeholder="Computer Science"
+          required
+          readOnly={index === 0}
+          className={index === 0 ? 'read-only-input' : ''}
+        />
+      </div>
+      
+      {/* CGPA - READ-ONLY for first entry */}
+      <div className={`form-group ${autoFilledFields.education && index === 0 ? 'auto-filled read-only' : ''}`}>
+        <label>
+          CGPA/Percentage *
+          {autoFilledFields.education && index === 0 && <span className="auto-fill-indicator">Auto-filled (Read-only)</span>}
+        </label>
+        <input
+          type="text"
+          value={edu.cgpa}
+          onChange={(e) => handleInputChange('education', index, 'cgpa', e.target.value)}
+          placeholder="3.8/4.0 or 90%"
+          required
+          readOnly={index === 0}
+          className={index === 0 ? 'read-only-input' : ''}
+        />
+      </div>
+      
+      {/* Year - READ-ONLY for first entry */}
+      <div className={`form-group ${autoFilledFields.education && index === 0 ? 'auto-filled read-only' : ''}`}>
+        <label>
+          Graduation Year *
+          {autoFilledFields.education && index === 0 && <span className="auto-fill-indicator">Auto-filled (Read-only)</span>}
+        </label>
+        <input
+          type="text"
+          value={edu.year}
+          onChange={(e) => handleInputChange('education', index, 'year', e.target.value)}
+          placeholder="2023"
+          required
+          readOnly={index === 0}
+          className={index === 0 ? 'read-only-input' : ''}
+        />
+      </div>
+      
+      {/* Don't allow removing the first (registration) education entry */}
+      {resumeData.education.length > 1 && index > 0 && (
+        <button className="remove-btn" onClick={() => removeEntry('education', index)}>
+          Remove Education
+        </button>
+      )}
+    </div>
+  ))}
+</div>
 
         {/* Projects Section */}
         <div className="section-block">
@@ -475,21 +578,34 @@ const ResumeForm = ({
         </div>
 
         {/* Skills Section */}
-        <div className="section-block">
-          <h3>Skills</h3>
-          <div className={`form-group ${autoFilledFields.skills ? 'auto-filled' : ''}`}>
-            <label>
-              Technical Skills (comma separated)
-              {autoFilledFields.skills && <span className="auto-fill-indicator">Auto-filled</span>}
-            </label>
-            <input
-              type="text"
-              value={resumeData.skills}
-              onChange={(e) => handleInputChange('skills', null, null, e.target.value)}
-              placeholder="React, Node.js, Python, AWS, Docker"
-            />
-          </div>
-        </div>
+<div className="section-block">
+  <h3>Skills</h3>
+  <div className={`form-group ${autoFilledFields.skills ? 'auto-filled' : ''}`}>
+    <label>
+      Technical Skills (comma separated)
+      {autoFilledFields.skills && <span className="auto-fill-indicator">Auto-filled</span>}
+    </label>
+    <textarea
+      value={resumeData.skills}
+      onChange={(e) => handleSimpleChange('skills', e.target.value)}
+      placeholder="React, Node.js, Python, AWS, Docker"
+      rows="3"
+    />
+    {autoFilledFields.skills && (
+      <p className="help-text">
+        Pre-filled from your registration. You can add more skills separated by commas.
+      </p>
+    )}
+  </div>
+</div>
+
+
+<div className="section-block">
+  <FreeAIEnhancer 
+    resumeData={resumeData}
+    onUpdate={setResumeData}
+  />
+</div>
 
         <div className="action-buttons">
           <button className="back-btn" onClick={onBack} disabled={saving}>

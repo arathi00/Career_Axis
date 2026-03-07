@@ -27,8 +27,12 @@ import AdminDashboard from "../pages/Admin/Dashboard";
 import StudentLayout from "../layouts/StudentLayout";
 import TrainerLayout from "../layouts/TrainerLayout";
 
+/* RESUME */
+import ResumeBuilder from "../pages/Student/Resume/ResumeBuilder";
+
 /* AUTH GUARD */
 import ProtectedRoute from "./ProtectedRoute";
+import RoleBasedRoute from "./RoleBasedRoute";
 
 const AppRoutes = () => {
   return (
@@ -53,9 +57,11 @@ const AppRoutes = () => {
         path="/student/dashboard"
         element={
           <ProtectedRoute>
-            <StudentLayout>
-              <StudentDashboard />
-            </StudentLayout>
+            <RoleBasedRoute role="student">
+              <StudentLayout>
+                <StudentDashboard />
+              </StudentLayout>
+            </RoleBasedRoute>
           </ProtectedRoute>
         }
       />
@@ -65,7 +71,7 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <StudentLayout>
-              <h1>Resume Builder Coming Soon</h1>
+              <ResumeBuilder />
             </StudentLayout>
           </ProtectedRoute>
         }

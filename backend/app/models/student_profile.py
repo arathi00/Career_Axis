@@ -1,5 +1,8 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, ARRAY
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.orm import relationship
 from app.database.base import Base
+
 
 class StudentProfile(Base):
     __tablename__ = "student_profiles"
@@ -11,9 +14,9 @@ class StudentProfile(Base):
     college = Column(String, nullable=False)
     course = Column(String, nullable=False)
     branch = Column(String, nullable=False)
-    # use snake_case column names so they map to the DB columns
-    # (avoid forcing a different column name which may not exist)
     current_year = Column(String, nullable=False)
     graduation_year = Column(Integer, nullable=False)
     cgpa = Column(Float, nullable=False)
     skills = Column(ARRAY(String), nullable=True)
+
+    user = relationship("User", back_populates="student_profile")

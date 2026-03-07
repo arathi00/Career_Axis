@@ -9,7 +9,7 @@ from app.database.session import get_db
 from app.core.security import hash_password, verify_password
 from app.core.config import create_token
 
-router = APIRouter(prefix="/auth", tags=["Auth"])
+router = APIRouter(tags=["Auth"])
 
 # =========================
 # REGISTER
@@ -55,6 +55,22 @@ def register(data: RegisterSchema, db: Session = Depends(get_db)):
         db.add(profile)
         db.commit()
 
+        # 5️⃣ Create an initial resume record so resume page can pre-fill
+        from app.models.resume import Resume
+
+        resume = Resume(
+            user_id=new_user.id,
+            technical_skills=skills,
+            key_strength="",
+            tools=[],
+            internships=[],
+            certifications=[],
+            achievements=[],
+            languages=[],
+        )
+        db.add(resume)
+        db.commit()
+
     except Exception as e:
         db.rollback()
         # Show backend error for debugging (mask in production)
@@ -79,9 +95,21 @@ def register(data: RegisterSchema, db: Session = Depends(get_db)):
 # =========================
 @router.post("/login")
 def login(data: LoginSchema, db: Session = Depends(get_db)):
+    # Debug: log login attempts (will appear in uvicorn output)
+    print(f"[auth.login] attempt for email={data.email}")
     user = db.query(User).filter(User.email == data.email).first()
 
-    if not user or not verify_password(data.password, user.password_hash):
+    if not user:
+        print(f"[auth.login] user not found for email={data.email}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+
+    verified = verify_password(data.password, user.password_hash)
+    print(f"[auth.login] user found id={user.id} role={user.role} verify_password={verified}")
+
+    if not verified:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"

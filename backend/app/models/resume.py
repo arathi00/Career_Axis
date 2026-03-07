@@ -21,16 +21,16 @@ class Resume(Base):
     domain = Column(String)
 
     # Skills
-    technical_skills = Column(ARRAY(String))
-    tools = Column(ARRAY(String))
+    technical_skills = Column(JSONB)
+    tools = Column(JSONB)
 
     # Internship / Training
     internships = Column(JSONB)
 
     # Other sections
-    certifications = Column(ARRAY(String))
-    achievements = Column(ARRAY(String))
-    languages = Column(ARRAY(String))
+    certifications = Column(JSONB)
+    achievements = Column(JSONB)
+    languages = Column(JSONB)
 
     # Contact info
     phone = Column(String, nullable=True)

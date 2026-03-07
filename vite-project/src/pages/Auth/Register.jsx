@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../../api/authApi';
 import Button from '../../components/UI/Button';
 import '../../styles/Register.css';
@@ -51,6 +52,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [skillInput, setSkillInput] = useState('');
   const [skills, setSkills] = useState([]);
+  const navigate = useNavigate();
 
   const validateGraduationYear = (year) => {
     const currentYear = new Date().getFullYear();
@@ -130,8 +132,9 @@ const Register = () => {
     try {
       await registerUser({ ...formData, skills });
       alert('Registration successful!');
-    } catch {
-      alert('Registration failed');
+      navigate('/login', { state: { email: formData.email, registered: true } });
+    } catch (err) {
+      alert(err?.response?.data?.detail || 'Registration failed');
     }
   };
 
