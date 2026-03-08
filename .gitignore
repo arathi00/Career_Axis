@@ -9,6 +9,8 @@ backend/venv/
 
 # Environment variables
 .env
+**/.env
+*.env
 
 # Node
 node_modules/
