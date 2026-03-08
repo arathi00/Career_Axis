@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "@/styles/QuizStyles.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchQuizById } from "@/api/quizApi";  
+import { fetchQuizById, submitQuizAnswers } from "@/api/quizApi";  
 
   
 
@@ -13,6 +13,7 @@ export default function QuizzAttempt() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quiz, setQuiz] = useState(null);
 
   // fetch quiz by id
   useEffect(() => {
@@ -20,7 +21,16 @@ export default function QuizzAttempt() {
     setLoading(true);
     fetchQuizById(id)
       .then((data) => {
-        if (mounted) setQuestions(data.questions || []);
+        if (mounted) {
+          setQuiz(data);
+          // Transform backend schema to component schema
+          const transformedQuestions = (data.questions || []).map((q) => ({
+            question_id: q.question_id,
+            question: q.question,
+            options: q.options,
+          }));
+          setQuestions(transformedQuestions);
+        }
       })
       .catch((err) => {
         if (mounted) setError(err.message || "Failed to load quiz");
@@ -47,6 +57,22 @@ export default function QuizzAttempt() {
   const [selected, setSelected] = useState(
     JSON.parse(localStorage.getItem("quiz-progress"))?.selected || {}
   );
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  const [questionTimings, setQuestionTimings] = useState({});
+
+  // Track time spent on current question
+  useEffect(() => {
+    setQuestionStartTime(Date.now());
+  }, [index]);
+
+  // Calculate current question time
+  const [currentQuestionTime, setCurrentQuestionTime] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentQuestionTime(Math.floor((Date.now() - questionStartTime) / 1000));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [questionStartTime]);
 
   // AUTO-SAVE ANSWERS
   useEffect(() => {
@@ -71,6 +97,13 @@ export default function QuizzAttempt() {
   const q = questions[index];
 
   const handleNext = () => {
+    // Save time spent on current question
+    const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
+    setQuestionTimings(prev => ({
+      ...prev,
+      [questions[index].question_id]: timeSpent
+    }));
+    
     if (index < questions.length - 1) setIndex(index + 1);
     else handleSubmit();
   };
@@ -79,73 +112,161 @@ export default function QuizzAttempt() {
     if (index > 0) setIndex(index - 1);
   };
 
-  const handleSubmit = () => {
-    let score = 0;
-
-    const qa = questions.map((q, i) => {
-      if (selected[i] === q.answer) score++;
-      return {
-        q: q.q,
-        options: q.options,
-        answer: q.answer,
-        explanation: q.explanation || `Correct answer: ${q.options[q.answer]}`,
-      };
-    });
-
-    // clear autosaved progress
-    localStorage.removeItem("quiz-progress");
-
-    // compute time taken (seconds)
-    const timeTakenSec = Math.max(0, INITIAL_TIME - timeLeft);
-
-    // build attempt record and persist to localStorage
-    const attempt = {
-      quizId: Number(id),
-      title: questions[0]?.title || `Quiz ${id}`,
-      score,
-      total: questions.length,
-      percentage: questions.length ? Math.round((score / questions.length) * 100) : 0,
-      timeTakenSec,
-      date: new Date().toISOString(),
-      qa,
-      selectedAnswers: Object.keys(selected).length ? selected : undefined,
-    };
-
+  const handleSubmit = async () => {
     try {
-      const existing = JSON.parse(localStorage.getItem("quiz_attempts") || "[]");
-      existing.unshift(attempt); // latest first
-      localStorage.setItem("quiz_attempts", JSON.stringify(existing));
-    } catch (err) {
-      console.error("Failed to save quiz attempt", err);
-    }
+      // Save timing for last question
+      const lastQuestionTime = Math.floor((Date.now() - questionStartTime) / 1000);
+      const finalTimings = {
+        ...questionTimings,
+        [questions[index].question_id]: lastQuestionTime
+      };
+      
+      // Format answers: map question_id to selected option text with timing
+      const answers = Object.entries(selected)
+        .map(([index, optionIndex]) => ({
+          question_id: questions[parseInt(index)]?.question_id,
+          selected_answer: questions[parseInt(index)]?.options[optionIndex] || null,
+          time_spent: finalTimings[questions[parseInt(index)]?.question_id] || 0
+        }))
+        .filter(a => a.question_id); // Only include answered questions
 
-    // pass attempt to results page so it can display immediately
-    navigate("/student/quiz/result", {
-      state: { score, total: questions.length, attempt },
-    });
+      // Calculate total time
+      const totalTimeSeconds = INITIAL_TIME - timeLeft;
+      const quizStartTime = new Date(startRef.current);
+
+      // Submit to backend with timing data
+      const result = await submitQuizAnswers(id, answers, quizStartTime.toISOString(), totalTimeSeconds);
+
+      // Extract results for display
+      const { score, total, percentage, questions: questionsWithAnswers } = result;
+
+      // Build qa for local storage/display
+      const qa = questions.map((q, i) => {
+        const userAnswerIndex = selected[i];
+        const userAnswer = userAnswerIndex !== undefined ? q.options[userAnswerIndex] : null;
+        const correctQuestion = questionsWithAnswers.find(qwa => qwa.question_id === q.question_id);
+        const isCorrect = userAnswer === correctQuestion?.correct_answer;
+
+        return {
+          q: q.question,
+          options: q.options,
+          answer: correctQuestion?.options.indexOf(correctQuestion.correct_answer) ?? -1,
+          selectedIndex: userAnswerIndex,
+          selectedAnswer: userAnswer,
+          explanation: correctQuestion?.explanation || `Correct answer: ${correctQuestion?.correct_answer}`,
+          isCorrect,
+        };
+      });
+
+      // clear autosaved progress
+      localStorage.removeItem("quiz-progress");
+
+      // build attempt record and persist to localStorage
+      const attempt = {
+        quizId: Number(id),
+        title: quiz?.topic || `Quiz ${id}`,
+        score,
+        total,
+        percentage,
+        timeTakenSec: Math.max(0, INITIAL_TIME - timeLeft),
+        date: new Date().toISOString(),
+        qa,
+        selectedAnswers: Object.keys(selected).length ? selected : undefined,
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem("quiz_attempts") || "[]");
+        existing.unshift(attempt); // latest first
+        localStorage.setItem("quiz_attempts", JSON.stringify(existing));
+      } catch (err) {
+        console.error("Failed to save quiz attempt", err);
+      }
+
+      // pass attempt to results page
+      navigate("/student/quiz/result", {
+        state: { score, total, attempt },
+      });
+    } catch (error) {
+      console.error("Failed to submit quiz:", error);
+      alert("Failed to submit quiz: " + (error.response?.data?.detail || error.message));
+    }
   };
 
   return (
     <div className="quiz-attempt">
 
-      {/* TIMER */}
+      {/* HEADER WITH TIMER AND PROGRESS - Matching Image UI */}
       <div
         style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           background: "#ffffff",
-          color: timeLeft <= 60 ? "red" : "#4f46e5",
-          fontWeight: "700",
-          fontSize: "20px",
-          padding: "12px",
+          padding: "16px 24px",
+          borderRadius: "12px",
+          marginBottom: "24px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.08)"
+        }}
+      >
+        {/* Company/Quiz Title */}
+        <div style={{ fontSize: "18px", fontWeight: "600", color: "#1f2937" }}>
+          {quiz?.company || "Quiz"} - {quiz?.exam_type || "Aptitude"}
+        </div>
+
+        {/* Circular Timer Display - Like in Image */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "80px",
+            height: "80px",
+            borderRadius: "50%",
+            background: currentQuestionTime > 120 ? "#fee2e2" : "#dbeafe",
+            border: `4px solid ${currentQuestionTime > 120 ? "#ef4444" : "#3b82f6"}`,
+            position: "relative"
+          }}
+        >
+          <div style={{ textAlign: "center" }}>
+            <div style={{ 
+              fontSize: "24px", 
+              fontWeight: "700", 
+              color: currentQuestionTime > 120 ? "#ef4444" : "#3b82f6" 
+            }}>
+              {currentQuestionTime > 60 ? Math.floor(currentQuestionTime / 60) : currentQuestionTime}
+            </div>
+            <div style={{ fontSize: "10px", color: "#6b7280" }}>
+              {currentQuestionTime > 60 ? "min" : "sec"}
+            </div>
+          </div>
+        </div>
+
+        {/* Question Progress */}
+        <div style={{ fontSize: "16px", fontWeight: "600", color: "#6b7280" }}>
+          {index + 1} of {questions.length}
+        </div>
+
+        {/* Score Display */}
+        <div style={{ fontSize: "16px", fontWeight: "600", color: "#6b7280" }}>
+          Score: {Object.keys(selected).length}
+        </div>
+      </div>
+
+      {/* Total Quiz Time Remaining */}
+      <div
+        style={{
+          background: timeLeft <= 60 ? "#fee2e2" : "#f0fdf4",
+          color: timeLeft <= 60 ? "#dc2626" : "#16a34a",
+          fontWeight: "600",
+          fontSize: "16px",
+          padding: "10px",
           borderRadius: "8px",
           textAlign: "center",
           marginBottom: "20px",
-          width: "220px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          boxShadow: "0 3px 8px rgba(0,0,0,0.1)"
+          border: `2px solid ${timeLeft <= 60 ? "#dc2626" : "#16a34a"}`
         }}
       >
-        ⏳ Time Left: {formatTime(timeLeft)}
+        ⏱️ Total Time Remaining: {formatTime(timeLeft)}
       </div>
 
       <div className="quiz-header">

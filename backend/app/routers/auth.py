@@ -6,8 +6,9 @@ from app.models.user import User
 from app.schemas.auth import RegisterRequest, LoginRequest, LoginResponse
 from app.utils.hashing import hash_password, verify_password
 from app.core.security import create_access_token
+from app.core.dependencies import get_current_user
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
+router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 
 def get_db():
@@ -91,4 +92,18 @@ def login(data: LoginRequest, db: Session = Depends(get_db)):
     return {
         "access_token": token,
         "role": user.role
+    }
+
+
+@router.get("/me")
+def get_current_user_profile(current_user: User = Depends(get_current_user)):
+    """Get authenticated user's profile"""
+    return {
+        "id": current_user.id,
+        "name": current_user.name,
+        "email": current_user.email,
+        "role": current_user.role,
+        "academic_details": current_user.academic_details,
+        "trainer_details": current_user.trainer_details,
+        "is_approved": current_user.is_approved
     }

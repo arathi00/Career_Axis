@@ -1,32 +1,29 @@
-import axios from "axios";
+import axiosInstance from './axiosConfig';
+import axios from 'axios';
 
-// 🔐 AUTH API (NO TOKEN EVER)
-const authAPI = axios.create({
-  baseURL: "http://127.0.0.1:8000",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const API_BASE_URL = 'http://localhost:8000/api/auth';
 
-// REGISTER
-export const registerUser = async (data) => {
-  const res = await authAPI.post("/auth/register", data);
-  return res.data;
+export const loginUser = async ({ email, password }) => {
+  const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
+  return response.data;
 };
 
-// LOGIN
-export const loginUser = async (data) => {
-  // 🔥 IMPORTANT: clear old auth before login
-  localStorage.clear();
+export const registerUser = async (payload) => {
+  const response = await axios.post(`${API_BASE_URL}/register`, payload);
+  return response.data;
+};
+
+export const getProfile = async () => {
+  const response = await axiosInstance.get(`${API_BASE_URL}/me`);
+  return response.data;
+};
+
+export const logout = () => {
+  localStorage.removeItem('access');
+  localStorage.removeItem('refresh');
+  localStorage.removeItem('role');
+  localStorage.removeItem('user');
   sessionStorage.clear();
-
-  const res = await authAPI.post("/auth/login", data);
-
-  localStorage.setItem("token", res.data.access_token);
-  // optional: only if backend sends user
-  // localStorage.setItem("user", JSON.stringify(res.data.user));
-
-  return res.data;
 };
 
-export default authAPI;
+export default { loginUser, registerUser, getProfile, logout };

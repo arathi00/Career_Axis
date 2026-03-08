@@ -5,7 +5,7 @@ from app.core.dependencies import require_role, get_db
 from app.models.user import User
 
 router = APIRouter(
-    prefix="/admin",
+    prefix="/api/admin",
     tags=["Admin"]
 )
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/authApi";
+import { loginUser, getProfile } from "../../api/authApi";
 import Button from "../../components/UI/Button";
 import "../../styles/login.css";
 
@@ -13,15 +13,16 @@ const Login = () => {
 
   // 🔒 If already logged in, redirect based on role
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access");
     const role = localStorage.getItem("role");
 
     if (token && role) {
-      if (role === "student") navigate("/student/dashboard");
-      else if (role === "trainer") navigate("/trainer/dashboard");
-      else navigate("/admin/dashboard");
+      if (role === "student") navigate("/student/dashboard", { replace: true });
+      else if (role === "trainer") navigate("/trainer/dashboard", { replace: true });
+      else navigate("/admin/dashboard", { replace: true });
     }
-  }, [navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +37,22 @@ const Login = () => {
       // res contains: access_token, role
 
       // ✅ SAVE AUTH DATA
-      localStorage.setItem("token", res.access_token);
+      localStorage.setItem("access", res.access_token);
       localStorage.setItem("role", res.role);
+      
+      // Store refresh token if provided
+      if (res.refresh_token) {
+        localStorage.setItem("refresh", res.refresh_token);
+      }
+
+      // ✅ FETCH USER PROFILE
+      try {
+        const userProfile = await getProfile();
+        localStorage.setItem("user", JSON.stringify(userProfile));
+      } catch (profileErr) {
+        console.warn("Failed to fetch user profile", profileErr);
+        // Continue anyway with just token and role
+      }
 
       // ✅ ROLE-BASED REDIRECT
       if (res.role === "student") navigate("/student/dashboard");

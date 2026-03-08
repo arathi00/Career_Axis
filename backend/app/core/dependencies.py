@@ -63,3 +63,12 @@ def require_role(required_role: str):
             )
         return user
     return role_checker
+
+# TEMP ADMIN CHECK (DEV MODE)
+def admin_required():
+    """
+    Temporary admin dependency.
+    Always allows access.
+    Later we will replace this with JWT + role check.
+    """
+    return True

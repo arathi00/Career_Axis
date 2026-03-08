@@ -28,6 +28,18 @@ import AssessmentHome from "../pages/Student/Assessment/AssessmentHome";
 import CompanyAssessment from "../pages/Student/Assessment/CompanyAssessment";
 import AssessmentQuiz from "../pages/Student/Assessment/QuizAttempt";
 import AssessmentResult from "../pages/Student/Assessment/QuizResult";
+
+/* AI QUIZ SYSTEM */
+import QuizGeneratorForm from "../components/QuizGeneratorForm";
+import QuizPlayer from "../components/QuizPlayer";
+import QuizResults from "../components/QuizResults";
+import QuizList from "../components/QuizList";
+import QuestionBankStats from "../components/QuestionBankStats";
+import SimpleQuizGenerator from "../components/admin/SimpleQuizGenerator";
+import AdminDashboardLite from "../components/admin/Dashboard";
+import AdminUsers from "../components/admin/Users";
+import AdminReports from "../components/admin/Reports";
+
 /* TRAINER */
 import TrainerDashboard from "../pages/Trainer/Dashboard";
 import ManageInterviews from "../pages/Trainer/ManageInterviews";
@@ -40,6 +52,7 @@ import AdminDashboard from "../pages/Admin/Dashboard";
 /* LAYOUTS */
 import StudentLayout from "../layouts/StudentLayout";
 import TrainerLayout from "../layouts/TrainerLayout";
+import AdminLayout from "../layouts/AdminLayout";
 
 /* AUTH GUARD */
 import ProtectedRoute from "./ProtectedRoute";
@@ -52,7 +65,7 @@ const AppRoutes = () => {
       <Route
         path="/"
         element={
-          localStorage.getItem("token")
+          localStorage.getItem("access")
             ? <Navigate to="/student/dashboard" />
             : <Landing />
         }
@@ -263,7 +276,104 @@ const AppRoutes = () => {
         path="/admin/dashboard"
         element={
           <ProtectedRoute>
-            <AdminDashboard />
+            <AdminLayout>
+              <AdminDashboardLite />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <AdminUsers />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/reports"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <AdminReports />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* AI Quiz Generator (Admin) */}
+      <Route
+        path="/admin/quiz-generator"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <QuizGeneratorForm />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Simple Quiz Generator - Gemini to DB (Admin) */}
+      <Route
+        path="/admin/simple-quiz-generator"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <SimpleQuizGenerator />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Question Bank Statistics (Admin) */}
+      <Route
+        path="/admin/question-bank"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <QuestionBankStats />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* ================= AI QUIZ SYSTEM (Student) ================= */}
+      {/* Quiz List */}
+      <Route
+        path="/quizzes"
+        element={
+          <ProtectedRoute>
+            <StudentLayout>
+              <QuizList />
+            </StudentLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Take Quiz */}
+      <Route
+        path="/quiz/:quizId"
+        element={
+          <ProtectedRoute>
+            <StudentLayout>
+              <QuizPlayer />
+            </StudentLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Quiz Results */}
+      <Route
+        path="/quiz-results"
+        element={
+          <ProtectedRoute>
+            <StudentLayout>
+              <QuizResults />
+            </StudentLayout>
           </ProtectedRoute>
         }
       />

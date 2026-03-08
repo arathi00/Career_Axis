@@ -1,15 +1,15 @@
 import React from "react";
 import DifficultyCard from "./DifficultyCard";
 import "@/pages/Student/Assessment/assessment.css";
-import { getQuestions } from "@/pages/Student/Assessment/assessmentData";
 
-export default function QuizSelection({ company, type='Aptitude', onSelectQuiz, onBack }){
-  // derive counts using questions present for the given type
-  const counts = {
-    Easy: getQuestions(company.id, type, 'Easy').length,
-    Medium: getQuestions(company.id, type, 'Medium').length,
-    Hard: getQuestions(company.id, type, 'Hard').length,
-  };
+export default function QuizSelection({ company, type='Aptitude', difficulties=[], onSelectQuiz, onBack }){
+  // difficulties is now passed from parent component with real data from API
+  // Format: [{level: 'Easy', count: 50}, {level: 'Medium', count: 75}, {level: 'Hard', count: 25}]
+  
+  const difficultyMap = {};
+  difficulties.forEach(d => {
+    difficultyMap[d.level] = d.count || 0;
+  });
 
   return (
     <div className="quiz-selection-section">
@@ -26,8 +26,8 @@ export default function QuizSelection({ company, type='Aptitude', onSelectQuiz, 
           <DifficultyCard
             key={l}
             level={l}
-            count={counts[l]}
-            examples={getQuestions(company.id, type, l).map(q => q.q)}
+            count={difficultyMap[l] || 0}
+            examples={[]}
             onStart={(level) => onSelectQuiz(type, level)}
           />
         ))}

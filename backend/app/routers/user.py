@@ -3,7 +3,7 @@ from app.core.dependencies import require_role
 from app.models.user import User
 
 router = APIRouter(
-    prefix="/student",
+    prefix="/api/student",
     tags=["Student"]
 )
 

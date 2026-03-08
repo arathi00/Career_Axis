@@ -4,10 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./styles/globals.css";
 import "./styles/components.css";
+import "./styles/Quiz.css";
+import "./styles/QuestionBankStats.css";
 
 // IMPORT AUTH PROVIDER
 import { AuthProvider } from "./context/AuthContext";
 
+console.log('✅ Main.jsx loaded successfully');
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>

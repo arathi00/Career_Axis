@@ -24,6 +24,8 @@ const Sidebar = ({ role = "student" }) => {
       { path: "/admin/dashboard", label: "Dashboard", icon: "🏠" },
       { path: "/admin/users", label: "Users", icon: "👥" },
       { path: "/admin/trainers", label: "Trainers", icon: "🧑‍🏫" },
+      { path: "/admin/simple-quiz-generator", label: "Quiz Generator", icon: "✨" },
+      { path: "/admin/question-bank", label: "Question Bank", icon: "📚" },
       { path: "/admin/reports", label: "Reports", icon: "📈" },
       { path: "/admin/settings", label: "Settings", icon: "⚙️" },
     ],

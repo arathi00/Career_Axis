@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import QuestionCard from "@/components/Assessment/QuestionCard";
-import { companies, getQuestions } from "./assessmentData";
+import { generateBankQuiz } from "@/api/quizApi";
 import "./assessment.css";
 
 export default function QuizAttempt(){
@@ -15,24 +15,51 @@ export default function QuizAttempt(){
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState({});
   const [secondsLeft, setSecondsLeft] = useState(600);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const timerRef = useRef(null);
 
   useEffect(()=>{
-    // use helper to get filtered questions
-    const company = companies.find(c => c.name === companyName || c.id === companyName);
-    if (!company){ setQuestions([]); return; }
+    // Generate quiz from bank questions
+    const loadQuestions = async () => {
+      try {
+        setLoading(true);
+        if (!companyName || !level || !type) {
+          setError("Missing parameters");
+          return;
+        }
 
-    const pool = getQuestions(company.id, type, level);
-    if (pool.length === 0) {
-      console.warn(`No questions found for ${companyName} - ${type} - ${level}`);
-    }
-    setQuestions(pool.length > 0 ? pool.slice(0, 10) : []);
+        const data = await generateBankQuiz({
+          company: companyName,
+          exam_type: type,
+          difficulty: level,
+          num_questions: 10
+        });
 
-    // compute duration from quizzes that match (sum durations) else default 10 min
-    const matchQuizzes = company.quizzes.filter(q => (!type || q.type === type) && (!level || q.level === level));
-    const totalMin = matchQuizzes.reduce((s,q) => s + (q.duration || 10), 0) || 10;
-    setSecondsLeft(totalMin * 60);
+        if (data.questions && data.questions.length > 0) {
+          // Transform API response to component format
+          const transformed = data.questions.map(q => ({
+            q: q.question,
+            options: q.options,
+            answer: q.options.indexOf(q.correct_answer),
+            explanation: q.explanation || `Correct answer: ${q.correct_answer}`
+          }));
+          setQuestions(transformed);
+          setSecondsLeft(10 * 60); // Default 10 minutes
+        } else {
+          setError("No questions available for this selection");
+          setQuestions([]);
+        }
+      } catch (err) {
+        console.error("Failed to load questions:", err);
+        setError("Failed to load questions from database");
+        setQuestions([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    loadQuestions();
     return () => { if (timerRef.current) clearInterval(timerRef.current); }
   }, [companyName, level, type]);
 
@@ -50,6 +77,8 @@ export default function QuizAttempt(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questions]);
 
+  if (loading) return <div style={{padding:24}}>Loading questions from database...</div>;
+  if (error) return <div style={{padding:24, color: 'red'}}>Error: {error}</div>;
   if (questions.length === 0) return <div style={{padding:24}}>No questions available for this selection.</div>;
 
   const q = questions[index];

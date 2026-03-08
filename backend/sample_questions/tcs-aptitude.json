@@ -1,0 +1,659 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Aptitude",
+  "branch": "ALL",
+  "total_questions": 50,
+  "questions": [
+    {
+      "id": "APT_001",
+      "question": "Sample Aptitude question 1: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_002",
+      "question": "Sample Aptitude question 2: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_003",
+      "question": "Sample Aptitude question 3: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_004",
+      "question": "Sample Aptitude question 4: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_005",
+      "question": "Sample Aptitude question 5: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_006",
+      "question": "Sample Aptitude question 6: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_007",
+      "question": "Sample Aptitude question 7: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_008",
+      "question": "Sample Aptitude question 8: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_009",
+      "question": "Sample Aptitude question 9: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_010",
+      "question": "Sample Aptitude question 10: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_011",
+      "question": "Sample Aptitude question 11: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_012",
+      "question": "Sample Aptitude question 12: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_013",
+      "question": "Sample Aptitude question 13: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_014",
+      "question": "Sample Aptitude question 14: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_015",
+      "question": "Sample Aptitude question 15: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_016",
+      "question": "Sample Aptitude question 16: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_017",
+      "question": "Sample Aptitude question 17: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_018",
+      "question": "Sample Aptitude question 18: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_019",
+      "question": "Sample Aptitude question 19: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_020",
+      "question": "Sample Aptitude question 20: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_021",
+      "question": "Sample Aptitude question 21: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_022",
+      "question": "Sample Aptitude question 22: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_023",
+      "question": "Sample Aptitude question 23: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_024",
+      "question": "Sample Aptitude question 24: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_025",
+      "question": "Sample Aptitude question 25: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_026",
+      "question": "Sample Aptitude question 26: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_027",
+      "question": "Sample Aptitude question 27: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_028",
+      "question": "Sample Aptitude question 28: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_029",
+      "question": "Sample Aptitude question 29: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_030",
+      "question": "Sample Aptitude question 30: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_031",
+      "question": "Sample Aptitude question 31: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_032",
+      "question": "Sample Aptitude question 32: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_033",
+      "question": "Sample Aptitude question 33: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_034",
+      "question": "Sample Aptitude question 34: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_035",
+      "question": "Sample Aptitude question 35: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_036",
+      "question": "Sample Aptitude question 36: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_037",
+      "question": "Sample Aptitude question 37: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_038",
+      "question": "Sample Aptitude question 38: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_039",
+      "question": "Sample Aptitude question 39: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_040",
+      "question": "Sample Aptitude question 40: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_041",
+      "question": "Sample Aptitude question 41: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "APT_042",
+      "question": "Sample Aptitude question 42: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "ai"
+    },
+    {
+      "id": "APT_043",
+      "question": "Sample Aptitude question 43: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "APT_044",
+      "question": "Sample Aptitude question 44: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "ai"
+    },
+    {
+      "id": "APT_045",
+      "question": "Sample Aptitude question 45: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "APT_046",
+      "question": "Sample Aptitude question 46: If x = {a}, what is 2x + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "ai"
+    },
+    {
+      "id": "APT_047",
+      "question": "Sample Aptitude question 47: A train travels {a} km in {b} hours. What is its speed?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "APT_048",
+      "question": "Sample Aptitude question 48: What is {a}% of {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "ai"
+    },
+    {
+      "id": "APT_049",
+      "question": "Sample Aptitude question 49: If the cost price is ₹{a} and profit is {b}%, what is selling price?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "APT_050",
+      "question": "Sample Aptitude question 50: What is {a} + {b}?",
+      "options": [
+        "Option A",
+        "Option B",
+        "Option C",
+        "Option D"
+      ],
+      "answer": "Option A",
+      "difficulty": "hard",
+      "source": "ai"
+    }
+  ]
+}

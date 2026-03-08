@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "@/styles/QuizStyles.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchQuizzes, fetchQuizById } from "@/api/quizApi";
+import { getGeneratedQuiz, submitQuizAnswers } from "@/api/quizApi";
 
 function shuffle(a){
   for(let i=a.length-1;i>0;i--){
@@ -13,58 +13,43 @@ function shuffle(a){
 export default function GeneratedAttempt(){
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const company = params.get("company");
-  const level = params.get("level"); // Easy / Medium / Hard
+  const quizId = params.get("quiz_id");
   const navigate = useNavigate();
 
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quiz, setQuiz] = useState(null);
 
   useEffect(() => {
     let mounted = true;
-    setLoading(true);
-    fetchQuizzes()
-      .then(async (list) => {
-        // fetch details for each and collect questions
-        const ids = list.map((q) => q.id);
-        const res = await Promise.all(ids.map((id) => fetchQuizById(id).catch(() => null)));
-        let pool = [];
-        res.forEach((r) =>{
-          if (!r) return;
-          const title = String(r.title || "").toLowerCase();
-          const matchCompany = company ? (title.includes(String(company).toLowerCase()) || title.includes("aptitude")) : true;
-          if (matchCompany){
-            (r.questions || []).forEach((qq) => {
-              if (!level || !qq.difficulty || qq.difficulty.toLowerCase() === level.toLowerCase()){
-                pool.push({
-                  q: qq.q,
-                  options: qq.options,
-                  answer: qq.answer,
-                  explanation: qq.explanation || `Correct answer: ${qq.options[qq.answer]}`,
-                });
-              }
-            });
-          }
-        });
+    if (!quizId) {
+      if (mounted) setError("Quiz ID is required");
+      setLoading(false);
+      return;
+    }
 
-        if (mounted){
-          if (pool.length === 0){
-            setError("No questions available for this selection.");
-            setQuestions([]);
-          } else {
-            const final = shuffle(pool).slice(0, 10);
-            setQuestions(final);
-          }
+    setLoading(true);
+    getGeneratedQuiz(quizId)
+      .then((data) => {
+        if (mounted) {
+          setQuiz(data);
+          // Transform backend schema to component schema
+          const transformedQuestions = (data.questions || []).map((q) => ({
+            question_id: q.question_id,
+            question: q.question,
+            options: q.options,
+          }));
+          setQuestions(transformedQuestions);
         }
       })
       .catch((err) => {
-        if (mounted) setError(err.message || "Failed to load quizzes");
+        if (mounted) setError(err.message || "Failed to load quiz");
       })
       .finally(()=> mounted && setLoading(false));
 
     return ()=> mounted = false;
-  }, [company, level]);
+  }, [quizId]);
 
   // timer and quiz state (similar to QuizzAttempt)
   const INITIAL_TIME = 600;
@@ -81,34 +66,65 @@ export default function GeneratedAttempt(){
   const handleNext = () => { if (index < questions.length -1) setIndex(index+1); else handleSubmit(); }
   const handlePrev = () => { if (index>0) setIndex(index-1); }
 
-  const handleSubmit = () => {
-    let score = 0;
-    const qa = questions.map((q, i) => {
-      if (selected[i] === q.answer) score++;
-      return { q: q.q, options: q.options, answer: q.answer, explanation: q.explanation };
-    });
-
-    const timeTakenSec = Math.max(0, INITIAL_TIME - timeLeft);
-
-    const attempt = {
-      quizId: null,
-      title: company ? `${company} - ${level || 'Mixed'}` : `Generated Quiz - ${level || 'Mixed'}`,
-      score,
-      total: questions.length,
-      percentage: questions.length ? Math.round((score / questions.length) * 100) : 0,
-      timeTakenSec,
-      date: new Date().toISOString(),
-      qa,
-      selectedAnswers: selected,
-    };
-
+  const handleSubmit = async () => {
     try {
-      const existing = JSON.parse(localStorage.getItem("quiz_attempts") || "[]");
-      existing.unshift(attempt);
-      localStorage.setItem("quiz_attempts", JSON.stringify(existing));
-    } catch (err) { console.error(err); }
+      // Format answers: map question_id to selected option text
+      const answers = Object.entries(selected)
+        .map(([index, optionIndex]) => ({
+          question_id: questions[parseInt(index)]?.question_id,
+          selected_answer: questions[parseInt(index)]?.options[optionIndex] || null
+        }))
+        .filter(a => a.question_id); // Only include answered questions
 
-    navigate("/student/quiz/result", { state: { score, total: questions.length, attempt } });
+      // Submit to backend
+      const result = await submitQuizAnswers(quizId, answers);
+
+      // Extract results for display
+      const { score, total, percentage, questions: questionsWithAnswers } = result;
+
+      // Build qa for local storage/display
+      const qa = questions.map((q, i) => {
+        const userAnswerIndex = selected[i];
+        const userAnswer = userAnswerIndex !== undefined ? q.options[userAnswerIndex] : null;
+        const correctQuestion = questionsWithAnswers.find(qwa => qwa.question_id === q.question_id);
+        const isCorrect = userAnswer === correctQuestion?.correct_answer;
+
+        return {
+          q: q.question,
+          options: q.options,
+          answer: correctQuestion?.options.indexOf(correctQuestion.correct_answer) ?? -1,
+          selectedIndex: userAnswerIndex,
+          selectedAnswer: userAnswer,
+          explanation: correctQuestion?.explanation || `Correct answer: ${correctQuestion?.correct_answer}`,
+          isCorrect,
+        };
+      });
+
+      const timeTakenSec = Math.max(0, INITIAL_TIME - timeLeft);
+
+      const attempt = {
+        quizId: Number(quizId),
+        title: quiz?.topic || `Quiz ${quizId}`,
+        score,
+        total,
+        percentage,
+        timeTakenSec,
+        date: new Date().toISOString(),
+        qa,
+        selectedAnswers: selected,
+      };
+
+      try {
+        const existing = JSON.parse(localStorage.getItem("quiz_attempts") || "[]");
+        existing.unshift(attempt);
+        localStorage.setItem("quiz_attempts", JSON.stringify(existing));
+      } catch (err) { console.error(err); }
+
+      navigate("/student/quiz/result", { state: { score, total, attempt } });
+    } catch (error) {
+      console.error("Failed to submit quiz:", error);
+      alert("Failed to submit quiz: " + (error.response?.data?.detail || error.message));
+    }
   };
 
   if (loading) return <div>Loading quiz...</div>;
@@ -127,7 +143,7 @@ export default function GeneratedAttempt(){
         <p>Question {index+1} of {questions.length}</p>
       </div>
 
-      <div className="question-box">{q.q}</div>
+      <div className="question-box">{q.question}</div>
 
       <div className="options-list">
         {q.options.map((opt,i) => (
