@@ -1,72 +1,116 @@
-/* ============================================
-   TOP NAVBAR (Trainer-style)
-============================================ */
-
-.top-navbar {
+/* ===============================
+   NAVBAR
+================================ */
+.navbar {
+  height: 64px;
   width: 100%;
-  height: 65px;
   background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
-  justify-content: space-between;  /* pushes left and right apart */
-  padding: 0 22px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  justify-content: space-between;
+  padding: 0 24px;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-/* LEFT SIDE */
-.nav-left {
+/* LEFT */
+.navbar-left .logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.navbar-left .logo span {
+  color: #4f46e5;
+}
+
+/* CENTER */
+.navbar-center {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 28px;
 }
 
-.nav-logo {
-  width: 32px;
-  height: 32px;
-}
-
-.nav-title {
-  font-size: 17px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.nav-subtitle {
-  font-size: 12px;
-  color: #666;
-  margin: 0;
-}
-
-/* RIGHT SIDE */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.nav-icon {
-  font-size: 20px;
-  cursor: pointer;
+.navbar-center a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #475569;
   transition: 0.2s;
 }
 
-.nav-icon:hover {
-  color: #4a6cf7;
+.navbar-center a:hover {
+  color: #4f46e5;
 }
 
-/* Profile Badge */
-.profile-circle {
+/* RIGHT */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* PROFILE */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.avatar {
   width: 36px;
   height: 36px;
-  background: #4a6cf7;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 50%;
-  font-weight: 600;
+  background: #4f46e5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  width: 160px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown a,
+.dropdown button {
+  padding: 10px;
+  text-align: left;
+  border-radius: 6px;
+  border: none;
+  background: none;
   cursor: pointer;
+  font-weight: 600;
+  color: #334155;
+}
+
+.dropdown a:hover,
+.dropdown button:hover {
+  background: #f1f5f9;
+}
+
+.logout {
+  color: #dc2626;
 }

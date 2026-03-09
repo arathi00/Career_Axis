@@ -1,31 +1,54 @@
-// src/api/interviewApi.js
-import api from "./axiosConfig"; // your configured axios instance
+import axiosInstance from './axiosConfig';
+
+const API_BASE_URL = 'http://localhost:8000/api';
 
 const interviewApi = {
-  // fetch available slots (public slots or trainer-created open slots)
-  getSlots: () => api.get("/interview/slots").then(res => res.data),
+  // Get all available interview slots
+  getSlots: async () => {
+    const response = await axiosInstance.get('/interviews/slots');
+    return response.data;
+  },
 
-  // student books a slot
-  bookSlot: (slotId) => api.post("/interview/schedule", { slotId }).then(res => res.data),
+  // Get specific interview details
+  getInterview: async (interviewId) => {
+    const response = await axiosInstance.get(`/interviews/${interviewId}`);
+    return response.data;
+  },
 
-  // get upcoming & past interviews for a student
-  getStudentInterviews: (studentId) => api.get(`/interview/student/${studentId}`).then(res => res.data),
+  // Book an interview slot (student)
+  bookSlot: async (slotId) => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    const response = await axiosInstance.post(
+      `/interviews/slots/${slotId}/book`,
+      { studentId: user.id }
+    );
+    return response.data;
+  },
 
-  // get interviews for trainer
-  getTrainerInterviews: (trainerId) => api.get(`/interview/trainer/${trainerId}`).then(res => res.data),
+  // Get student's booked interviews
+  getStudentInterviews: async (studentId) => {
+    const response = await axiosInstance.get(`/interviews/student/${studentId}`);
+    return response.data;
+  },
 
-  // create a slot (trainer)
-  createSlot: (payload) => api.post("/interview/slots", payload).then(res => res.data),
+  // Get trainer's interviews
+  getTrainerInterviews: async (trainerId) => {
+    const response = await axiosInstance.get(`/interviews/trainer/${trainerId}`);
+    return response.data;
+  },
 
-  // get join link / session token for an interview
-  getJoinLink: (interviewId) => api.get(`/interview/join/${interviewId}`).then(res => res.data),
+  // Create new interview slot (trainer)
+  createSlot: async (slotData) => {
+    const response = await axiosInstance.post('/interviews/slots', slotData);
+    return response.data;
+  },
 
-  // submit feedback (trainer)
-  submitFeedback: (interviewId, feedbackPayload) =>
-    api.post(`/interview/feedback`, { interviewId, ...feedbackPayload }).then(res => res.data),
-
-  // fetch a single interview by id
-  getInterview: (interviewId) => api.get(`/interview/${interviewId}`).then(res => res.data),
+  // Submit feedback for interview (trainer)
+  submitFeedback: async (interviewId, feedbackData) => {
+    const response = await axiosInstance.put(`/interviews/${interviewId}/feedback`, feedbackData);
+    return response.data;
+  }
 };
 
 export default interviewApi;

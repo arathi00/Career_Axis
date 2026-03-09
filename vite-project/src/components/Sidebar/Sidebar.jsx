@@ -1,51 +1,51 @@
-import React, { useState } from "react";
-import {
-  FaHome,
-  FaFileAlt,
-  FaStar,
-  FaComments,
-  FaChalkboardTeacher,
-  FaBars,
-} from "react-icons/fa";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
 
-import { Link } from "react-router-dom";
+const Sidebar = ({ role = "student" }) => {
+  const menus = {
+    student: [
+      { path: "/student/dashboard", label: "Dashboard", icon: "🏠" },
+      { path: "/student/resume", label: "Resume Builder", icon: "📄" },
+      { path: "/student/assessments", label: "Quizzes", icon: "📝" },
+      { path: "/student/interviews", label: "Interviews", icon: "🎤" },
+      { path: "/student/chatbot", label: "Chatbot", icon: "🤖" },
+      { path: "/student/analytics", label: "Analytics", icon: "📊" },
+    ],
 
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+    trainer: [
+      { path: "/trainer/dashboard", label: "Dashboard", icon: "🏠" },
+      { path: "/trainer/interviews", label: "Interviews", icon: "🎤" },
+      { path: "/trainer/students", label: "Students", icon: "👨‍🎓" },
+      { path: "/trainer/feedback", label: "Feedback", icon: "📝" },
+    ],
+
+    admin: [
+      { path: "/admin/dashboard", label: "Dashboard", icon: "🏠" },
+      { path: "/admin/users", label: "Users", icon: "👥" },
+      { path: "/admin/trainers", label: "Trainers", icon: "🧑‍🏫" },
+      { path: "/admin/simple-quiz-generator", label: "Quiz Generator", icon: "✨" },
+      { path: "/admin/question-bank", label: "Question Bank", icon: "📚" },
+      { path: "/admin/reports", label: "Reports", icon: "📈" },
+      { path: "/admin/settings", label: "Settings", icon: "⚙️" },
+    ],
+  };
 
   return (
-    <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-      {/* Toggle button */}
-      <button className="sidebar-toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
-        <FaBars />
-      </button>
-
+    <aside className="sidebar">
       <nav className="sidebar-menu">
-        <Link to="/student/dashboard" className="sidebar-item">
-          <FaHome className="sidebar-icon" />
-          {!isCollapsed && <span>Dashboard</span>}
-        </Link>
-
-        {/* ⭐ FIXED PATH HERE */}
-        <Link to="/student/resume-builder" className="sidebar-item">
-          <FaFileAlt className="sidebar-icon" />
-          {!isCollapsed && <span>Resume Builder</span>}
-        </Link>
-
-        <Link to="/student/quiz" className="sidebar-item">
-          <FaStar className="sidebar-icon" />
-          {!isCollapsed && <span>Quizzes</span>}
-        </Link>
-
-        <Link to="/student/interview" className="sidebar-item">
-          <FaChalkboardTeacher className="sidebar-icon" />
-          {!isCollapsed && <span>Interviews</span>}
-        </Link>
-
-        <Link to="/student/chatbot" className="sidebar-item">
-          <FaComments className="sidebar-icon" />
-          {!isCollapsed && <span>Chatbot</span>}
-        </Link>
+        {menus[role].map((item, index) => (
+          <NavLink
+            key={index}
+            to={item.path}
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            <span className="icon">{item.icon}</span>
+            {item.label}
+          </NavLink>
+        ))}
       </nav>
     </aside>
   );

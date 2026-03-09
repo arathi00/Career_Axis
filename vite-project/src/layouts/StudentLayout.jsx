@@ -7,10 +7,12 @@ import "../styles/components.css";
 const StudentLayout = () => {
   return (
     <div className="layout-container">
+      {/* TOP NAVBAR */}
       <Navbar />
 
-      <div className="layout-content">
-        <Sidebar />
+      {/* BODY: SIDEBAR + CONTENT */}
+      <div className="layout-body">
+        <Sidebar role="student" />
 
         <main className="layout-main">
           <Outlet />   {/* 👈 THIS IS REQUIRED */}

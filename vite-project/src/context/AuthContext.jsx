@@ -7,7 +7,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const saved = localStorage.getItem("user");
-    if (saved) setUser(JSON.parse(saved));
+    if (saved) {
+      try {
+        setUser(JSON.parse(saved));
+      } catch (err) {
+        console.warn('Failed to parse saved user from localStorage, clearing invalid value.');
+        localStorage.removeItem('user');
+      }
+    }
   }, []);
 
   const login = (data) => {

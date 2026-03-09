@@ -1,0 +1,89 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Verbal Ability",
+  "branch": "ALL",
+  "total_questions": 100,
+  "questions": [
+    {
+      "id": "VER_001",
+      "question": "Choose the synonym of 'Rapid'.",
+      "options": ["Slow", "Fast", "Weak", "Dull"],
+      "answer": "Fast",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "VER_002",
+      "question": "Choose the correct spelling:",
+      "options": ["Occassion", "Occasion", "Ocasion", "Occassion"],
+      "answer": "Occasion",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "VER_003",
+      "question": "What is the antonym of 'Happy'?",
+      "options": ["Joyful", "Sad", "Excited", "Cheerful"],
+      "answer": "Sad",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "VER_004",
+      "question": "Fill in the blank: He ____ to school every day.",
+      "options": ["go", "goes", "going", "gone"],
+      "answer": "goes",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "VER_005",
+      "question": "Which word is a synonym of 'Ephemeral'?",
+      "options": ["Permanent", "Lasting", "Transient", "Eternal"],
+      "answer": "Transient",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "VER_006",
+      "question": "Identify the grammatically correct sentence:",
+      "options": ["He don't like coffee", "He doesn't like coffee", "He do not like coffee", "He is not liking coffee"],
+      "answer": "He doesn't like coffee",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "VER_007",
+      "question": "What does 'Ubiquitous' mean?",
+      "options": ["Rare", "Present everywhere", "Hidden", "Mysterious"],
+      "answer": "Present everywhere",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "VER_008",
+      "question": "Choose the synonym of 'Benevolent':",
+      "options": ["Cruel", "Kind", "Harsh", "Angry"],
+      "answer": "Kind",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "VER_009",
+      "question": "What does 'Break the ice' mean?",
+      "options": ["To physically break ice", "To start a conversation", "To quit something", "To freeze something"],
+      "answer": "To start a conversation",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "VER_010",
+      "question": "Identify the error: 'Neither the teacher nor the students was happy.'",
+      "options": ["teacher", "nor", "was", "happy"],
+      "answer": "was",
+      "difficulty": "hard",
+      "source": "ai"
+    }
+  ]
+}

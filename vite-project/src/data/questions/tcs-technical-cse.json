@@ -1,0 +1,89 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Technical",
+  "branch": "CSE",
+  "total_questions": 100,
+  "questions": [
+    {
+      "id": "CSE_001",
+      "question": "Which data structure follows LIFO?",
+      "options": ["Queue", "Stack", "Tree", "Graph"],
+      "answer": "Stack",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "CSE_002",
+      "question": "What is the time complexity of binary search?",
+      "options": ["O(n)", "O(log n)", "O(n^2)", "O(1)"],
+      "answer": "O(log n)",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "CSE_003",
+      "question": "Which is not an OOP concept?",
+      "options": ["Inheritance", "Polymorphism", "Compilation", "Encapsulation"],
+      "answer": "Compilation",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "CSE_004",
+      "question": "What does SQL stand for?",
+      "options": ["Simple Query Language", "Structured Query Language", "System Query Logic", "Standard Question Language"],
+      "answer": "Structured Query Language",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "CSE_005",
+      "question": "Which data structure uses FIFO?",
+      "options": ["Stack", "Queue", "Tree", "Graph"],
+      "answer": "Queue",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "CSE_006",
+      "question": "What is the output of: 5 + 3 * 2?",
+      "options": ["16", "11", "10", "13"],
+      "answer": "11",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "CSE_007",
+      "question": "What is the time complexity of quicksort in average case?",
+      "options": ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+      "answer": "O(n log n)",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "CSE_008",
+      "question": "What is polymorphism?",
+      "options": ["Same function name with different implementations", "Creating multiple objects", "Inheriting from multiple classes", "None of these"],
+      "answer": "Same function name with different implementations",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "CSE_009",
+      "question": "What is the space complexity of merge sort?",
+      "options": ["O(1)", "O(log n)", "O(n)", "O(n^2)"],
+      "answer": "O(n)",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "CSE_010",
+      "question": "What does API stand for?",
+      "options": ["Application Programming Interface", "Advanced Program Instruction", "Application Process Integration", "Automatic Programming Interface"],
+      "answer": "Application Programming Interface",
+      "difficulty": "easy",
+      "source": "ai"
+    }
+  ]
+}
