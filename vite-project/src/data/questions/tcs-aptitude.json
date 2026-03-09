@@ -1,0 +1,89 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Aptitude",
+  "branch": "ALL",
+  "total_questions": 100,
+  "questions": [
+    {
+      "id": "APT_001",
+      "question": "A train travels 120 km in 2 hours. What is its speed?",
+      "options": ["40 km/h", "50 km/h", "60 km/h", "70 km/h"],
+      "answer": "60 km/h",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_002",
+      "question": "If the cost price is ₹500 and selling price is ₹600, find profit percentage.",
+      "options": ["10%", "15%", "20%", "25%"],
+      "answer": "20%",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_003",
+      "question": "What is 25% of 200?",
+      "options": ["40", "50", "60", "70"],
+      "answer": "50",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_004",
+      "question": "If x = 5, what is 3x + 7?",
+      "options": ["18", "20", "22", "24"],
+      "answer": "22",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "APT_005",
+      "question": "A rectangle has length 10 cm and width 5 cm. What is its area?",
+      "options": ["40 cm²", "50 cm²", "55 cm²", "60 cm²"],
+      "answer": "50 cm²",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "APT_006",
+      "question": "If 5 workers complete a task in 10 days, how many days will 10 workers take?",
+      "options": ["3 days", "5 days", "7 days", "10 days"],
+      "answer": "5 days",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_007",
+      "question": "What is the simple interest on ₹1000 at 5% per annum for 2 years?",
+      "options": ["₹50", "₹75", "₹100", "₹150"],
+      "answer": "₹100",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_008",
+      "question": "A car travels 360 km in 4 hours. What is its average speed?",
+      "options": ["80 km/h", "90 km/h", "100 km/h", "110 km/h"],
+      "answer": "90 km/h",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "APT_009",
+      "question": "If a shopkeeper gives 30% discount on ₹500, what is the final price?",
+      "options": ["₹300", "₹350", "₹400", "₹450"],
+      "answer": "₹350",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "APT_010",
+      "question": "The ratio of boys to girls is 3:2. If there are 30 boys, how many girls are there?",
+      "options": ["15", "18", "20", "25"],
+      "answer": "20",
+      "difficulty": "hard",
+      "source": "ai"
+    }
+  ]
+}

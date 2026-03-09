@@ -1,0 +1,13 @@
+/* globals.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.page {
+  padding-top: 30px;   /* pushes the content below fixed navbar */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
