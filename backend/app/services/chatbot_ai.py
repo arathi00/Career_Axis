@@ -189,6 +189,79 @@ def get_recent_history(db: Session, user_id: int, limit: int = 5):
         return []
 
 
+def _offline_placement_response(message: str) -> str:
+    """Return a useful placement-focused fallback reply when Gemini is unavailable."""
+    text = (message or "").strip().lower()
+
+    if any(k in text for k in ["round", "process", "placement process", "steps"]):
+        return (
+            "Most campus placement processes follow these rounds:\n"
+            "1. Online assessment: aptitude, coding/technical MCQs, verbal\n"
+            "2. Technical interview: DSA, CS fundamentals, project discussion\n"
+            "3. Managerial/techno-managerial round: problem-solving and teamwork\n"
+            "4. HR round: communication, attitude, role fit, relocation\n"
+            "Preparation tip: prioritize aptitude + core CS + one strong project story."
+        )
+
+    if any(k in text for k in ["hr", "interview question", "tell me about yourself"]):
+        return (
+            "Try this HR question now:\n"
+            "\"Tell me about yourself and why we should hire you for this role.\"\n"
+            "Answer structure (60-90 sec):\n"
+            "1. Background: branch/year + key skills\n"
+            "2. Evidence: 1 project/internship impact\n"
+            "3. Fit: why this company + role\n"
+            "4. Close: eagerness to contribute and learn"
+        )
+
+    if any(k in text for k in ["resume", "cv"]):
+        return (
+            "Quick resume checklist for placements:\n"
+            "1. One page, clean format\n"
+            "2. Strong headline: role + core skills\n"
+            "3. Projects with measurable impact (numbers)\n"
+            "4. Skills split: languages, tools, core subjects\n"
+            "5. No spelling errors; keep verbs action-oriented"
+        )
+
+    if any(k in text for k in ["aptitude", "quant", "reasoning", "verbal"]):
+        return (
+            "Aptitude prep plan (2 weeks):\n"
+            "1. Daily 45 min quant (percentages, ratio, TSD, profit/loss)\n"
+            "2. Daily 30 min logical reasoning (seating, puzzles, syllogism)\n"
+            "3. Daily 20 min verbal (RC, parajumbles, vocab)\n"
+            "4. Alternate-day timed mock tests\n"
+            "5. Error log: revise mistakes every 3 days"
+        )
+
+    if any(k in text for k in ["dsa", "coding", "leetcode", "algorithm"]):
+        return (
+            "Coding interview prep roadmap:\n"
+            "1. Arrays/strings, hashing, two pointers\n"
+            "2. Stack/queue, linked list, binary search\n"
+            "3. Trees, graphs, recursion/backtracking\n"
+            "4. Dynamic programming basics\n"
+            "5. Practice 2 timed problems/day + explain approach out loud"
+        )
+
+    if any(k in text for k in ["amazon", "prepare", "company", "interview"]):
+        return (
+            "Quick Amazon Placement Prep:\n"
+            "1. **Coding**: Focus on Array, String, DP (LeetCode Medium level)\n"
+            "2. **DSA**: Trees, Graphs, Hash Maps critical\n"
+            "3. **Aptitude**: Standard placement-level (no advanced math)\n"
+            "4. **HR**: Leadership principle questions + STAR method\n"
+            "5. **Tips**: Explain approach clearly + optimize solutions"
+        )
+
+    return (
+        "I can still help with placement preparation. Tell me your target role and I will give you:\n"
+        "1. A 7-day prep plan\n"
+        "2. Most asked interview questions\n"
+        "3. Company-specific strategy"
+    )
+
+
 # --------------- CHATBOT RESPONSE ---------------- #
 
 def generate_chatbot_response(db: Session, user_id: int, user_message: str) -> tuple[str, datetime]:
@@ -223,13 +296,18 @@ def generate_chatbot_response(db: Session, user_id: int, user_message: str) -> t
         return reply, now
 
     except Exception as exc:
-
+        error_str = str(exc)
         logger.exception("❌ Chatbot generation failed")
-
-        return (
-            "Gemini is temporarily unavailable. Please try again later.",
-            now
-        )
+        
+        # Get smart fallback response for placement guidance
+        fallback_reply = _offline_placement_response(message)
+        
+        # Log specifics for quota errors
+        lowered = error_str.lower()
+        if "quota" in lowered or "resourceexhausted" in lowered or "429" in error_str:
+            logger.warning("⚠️ API quota limit exceeded, using local fallback")
+        
+        return (fallback_reply, now)
 
 
 def save_chat_log(db: Session, user_id: int, query: str, response: str) -> None:
