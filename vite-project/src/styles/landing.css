@@ -1,0 +1,20 @@
+/* Minimal landing hero styles */
+.landing-hero{background:linear-gradient(135deg,#b08be6,#f0b6e6);padding:48px 0;color:#fff}
+.landing-inner{display:flex;gap:32px;align-items:center}
+.hero-left{flex:1}
+.hero-right{flex:1}
+.hero-image{width:100%;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.15)}
+.hero-right h1{font-size:48px;line-height:1.02;margin:0 0 16px;font-weight:800}
+.hero-right p{color:rgba(255,255,255,0.95);max-width:520px;margin-bottom:20px}
+.hero-actions{display:flex;gap:16px;margin-bottom:28px}
+.hero-cta{background:linear-gradient(90deg,#7c5af7,#e39cf8);border:none;padding:12px 20px;border-radius:10px;color:#fff;font-weight:700;cursor:pointer}
+.secondary{background:rgba(255,255,255,0.9);color:#6c5ce7;border:none;padding:12px 20px;border-radius:10px;cursor:pointer}
+.hero-stats{display:flex;gap:28px;margin-top:12px}
+.stat{display:flex;flex-direction:column;align-items:center}
+.stat-number{font-size:22px;font-weight:800}
+.stat-label{font-size:13px;color:rgba(255,255,255,0.9)}
+
+@media (max-width:900px){
+  .landing-inner{flex-direction:column}
+  .hero-right h1{font-size:32px}
+}

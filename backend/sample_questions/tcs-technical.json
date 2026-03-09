@@ -1,0 +1,169 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Technical",
+  "branch": "CSE",
+  "total_questions": 20,
+  "questions": [
+    {
+      "id": "TCS_TEC_001",
+      "question": "What is the time complexity of binary search on a sorted array of n elements?",
+      "options": ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+      "answer": "O(log n)",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_002",
+      "question": "Which data structure uses FIFO ordering?",
+      "options": ["Stack", "Queue", "Tree", "Graph"],
+      "answer": "Queue",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_003",
+      "question": "What is the output of the expression: 3 + 2 * 2?",
+      "options": ["10", "7", "8", "5"],
+      "answer": "7",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_004",
+      "question": "Which sorting algorithm is stable and has average time complexity O(n log n)?",
+      "options": ["Quicksort", "Mergesort", "Heapsort", "Selection sort"],
+      "answer": "Mergesort",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_005",
+      "question": "In relational databases, what does SQL stand for?",
+      "options": ["Structured Query Language", "Simple Query Language", "Sequential Query Language", "Standard Query Language"],
+      "answer": "Structured Query Language",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_006",
+      "question": "Which of these is NOT a relational database management system?",
+      "options": ["MySQL", "PostgreSQL", "MongoDB", "SQLite"],
+      "answer": "MongoDB",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_007",
+      "question": "In OOP, which principle refers to hiding internal state and requiring all interaction through methods?",
+      "options": ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"],
+      "answer": "Encapsulation",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_008",
+      "question": "Which HTTP status code indicates a successful GET request?",
+      "options": ["200", "301", "400", "500"],
+      "answer": "200",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_009",
+      "question": "What is a primary key in a database table?",
+      "options": ["A field that uniquely identifies a record", "A field used for sorting", "A field that can be NULL", "A field used for encryption"],
+      "answer": "A field that uniquely identifies a record",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_010",
+      "question": "Which data structure is best suited for implementing recursion elimination using explicit memory?",
+      "options": ["Queue", "Stack", "Heap", "Set"],
+      "answer": "Stack",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_011",
+      "question": "Which graph traversal algorithm is used to find the shortest path in an unweighted graph?",
+      "options": ["Depth First Search", "Breadth First Search", "Dijkstra", "Bellman-Ford"],
+      "answer": "Breadth First Search",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_012",
+      "question": "What does ACID stand for in database systems?",
+      "options": ["Atomicity, Consistency, Isolation, Durability", "Availability, Consistency, Isolation, Durability", "Atomicity, Concurrency, Isolation, Durability", "Authenticity, Consistency, Isolation, Durability"],
+      "answer": "Atomicity, Consistency, Isolation, Durability",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_013",
+      "question": "Which of the following is an example of a NoSQL database?",
+      "options": ["Oracle", "Cassandra", "SQL Server", "DB2"],
+      "answer": "Cassandra",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_014",
+      "question": "Which algorithmic technique divides a problem into smaller subproblems and combines their solutions?",
+      "options": ["Greedy", "Divide and Conquer", "Dynamic Programming", "Backtracking"],
+      "answer": "Divide and Conquer",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_015",
+      "question": "In networking, what does TCP stand for?",
+      "options": ["Transfer Control Protocol", "Transmission Control Protocol", "Transport Control Protocol", "Transmission Channel Protocol"],
+      "answer": "Transmission Control Protocol",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_016",
+      "question": "Which data structure gives O(1) average time complexity for insert and lookup?",
+      "options": ["Array", "Linked List", "Hash Table", "Binary Search Tree"],
+      "answer": "Hash Table",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_017",
+      "question": "What is the worst-case time complexity of quicksort?",
+      "options": ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+      "answer": "O(n^2)",
+      "difficulty": "hard",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_018",
+      "question": "Which HTTP method is idempotent and used to update resources?",
+      "options": ["POST", "GET", "PUT", "PATCH"],
+      "answer": "PUT",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_019",
+      "question": "Which of these is NOT a characteristic of RESTful services?",
+      "options": ["Stateless", "Cacheable", "Tightly coupled", "Layered system"],
+      "answer": "Tightly coupled",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "TCS_TEC_020",
+      "question": "In object-oriented programming, which concept allows objects of different classes to be treated as objects of a common supertype?",
+      "options": ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"],
+      "answer": "Polymorphism",
+      "difficulty": "easy",
+      "source": "manual"
+    }
+  ]
+}

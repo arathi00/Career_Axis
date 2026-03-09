@@ -1,0 +1,89 @@
+{
+  "company": "TCS",
+  "college": "GECI",
+  "section": "Logical Reasoning",
+  "branch": "ALL",
+  "total_questions": 100,
+  "questions": [
+    {
+      "id": "LOG_001",
+      "question": "What comes next: 3, 9, 27, ?",
+      "options": ["54", "81", "72", "90"],
+      "answer": "81",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "LOG_002",
+      "question": "Find the odd one out: Apple, Banana, Car, Orange",
+      "options": ["Apple", "Banana", "Car", "Orange"],
+      "answer": "Car",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "LOG_003",
+      "question": "If all cats are animals and all animals have hearts, then:",
+      "options": ["All cats have hearts", "Some cats have hearts", "No cats have hearts", "Cannot determine"],
+      "answer": "All cats have hearts",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "LOG_004",
+      "question": "What is the next number: 2, 6, 12, 20, ?",
+      "options": ["28", "30", "32", "36"],
+      "answer": "30",
+      "difficulty": "medium",
+      "source": "ai"
+    },
+    {
+      "id": "LOG_005",
+      "question": "Which day will it be 10 days after Monday?",
+      "options": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      "answer": "Thursday",
+      "difficulty": "medium",
+      "source": "manual"
+    },
+    {
+      "id": "LOG_006",
+      "question": "A is taller than B. B is taller than C. Who is the shortest?",
+      "options": ["A", "B", "C", "Cannot determine"],
+      "answer": "C",
+      "difficulty": "easy",
+      "source": "ai"
+    },
+    {
+      "id": "LOG_007",
+      "question": "What comes next: A, C, E, G, ?",
+      "options": ["H", "I", "J", "K"],
+      "answer": "I",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "LOG_008",
+      "question": "If RED is coded as 27, what is BLUE?",
+      "options": ["40", "45", "50", "55"],
+      "answer": "40",
+      "difficulty": "hard",
+      "source": "ai"
+    },
+    {
+      "id": "LOG_009",
+      "question": "Complete the series: 1, 4, 9, 16, ?",
+      "options": ["20", "24", "25", "30"],
+      "answer": "25",
+      "difficulty": "easy",
+      "source": "manual"
+    },
+    {
+      "id": "LOG_010",
+      "question": "Which number doesn't belong: 2, 3, 5, 7, 9, 11?",
+      "options": ["2", "3", "7", "9"],
+      "answer": "9",
+      "difficulty": "medium",
+      "source": "ai"
+    }
+  ]
+}
