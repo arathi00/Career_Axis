@@ -7,7 +7,7 @@ const Sidebar = ({ role = "student" }) => {
     student: [
       { path: "/student/dashboard", label: "Dashboard", icon: "🏠" },
       { path: "/student/resume", label: "Resume Builder", icon: "📄" },
-      { path: "/student/assessments", label: "Quizzes", icon: "📝" },
+      { path: "/student/quizzes", label: "Quizzes", icon: "📝" },
       { path: "/student/interviews", label: "Interviews", icon: "🎤" },
       { path: "/student/chatbot", label: "Chatbot", icon: "🤖" },
       { path: "/student/analytics", label: "Analytics", icon: "📊" },
@@ -24,8 +24,6 @@ const Sidebar = ({ role = "student" }) => {
       { path: "/admin/dashboard", label: "Dashboard", icon: "🏠" },
       { path: "/admin/users", label: "Users", icon: "👥" },
       { path: "/admin/trainers", label: "Trainers", icon: "🧑‍🏫" },
-      { path: "/admin/simple-quiz-generator", label: "Quiz Generator", icon: "✨" },
-      { path: "/admin/question-bank", label: "Question Bank", icon: "📚" },
       { path: "/admin/reports", label: "Reports", icon: "📈" },
       { path: "/admin/settings", label: "Settings", icon: "⚙️" },
     ],

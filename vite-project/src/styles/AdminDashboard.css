@@ -141,24 +141,3 @@
 .green-text { color: #10b981; }
 .blue-text { color: #3b82f6; }
 .orange-text { color: #fb923c; }
-
-/* Approve/Reject buttons (for approve trainers UI) */
-.trainer-list { margin-top: 18px; }
-.trainer-row { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-radius: 8px; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.04); margin-bottom: 10px; }
-.trainer-info { display: flex; align-items: center; gap: 12px; }
-.trainer-avatar { width: 44px; height: 44px; border-radius: 50%; background: #eef2ff; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #4c1d95; }
-.trainer-name { font-weight: 600; color: #111827; }
-.trainer-meta { color: #6b7280; font-size: 13px; }
-
-.btns { display: flex; gap: 8px; }
-.btn-approve { background: #10b981; color: #ffffff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-.btn-reject { background: #ef4444; color: #ffffff; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-.btn-approve:hover { opacity: 0.95; }
-.btn-reject:hover { opacity: 0.95; }
-
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  .admin-title { font-size: 24px; }
-  .stats-value { font-size: 22px; }
-  .feature-icon { font-size: 28px; }
-}

@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import "../styles/components.css";
 import { Outlet } from "react-router-dom";
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
   return (
     <div className="layout-container">
       {/* TOP NAVBAR */}
@@ -15,7 +15,7 @@ const AdminLayout = ({ children }) => {
         <Sidebar role="admin" />
 
         <main className="layout-main">
-          {children || <Outlet />}
+          <Outlet />
         </main>
       </div>
     </div>

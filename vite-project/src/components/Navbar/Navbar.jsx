@@ -19,11 +19,11 @@ const Navbar = ({ role = "student", userName = "Student" }) => {
 
   // 🔹 LOGOUT HANDLER (ADDED)
   const handleLogout = () => {
-  localStorage.clear();
-  sessionStorage.clear();
-  window.location.href = "/login";
-};
-
+    localStorage.removeItem("token");
+    localStorage.removeItem("token_type");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar">

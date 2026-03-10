@@ -1,13 +1,16 @@
+from passlib.context import CryptContext
 
-from datetime import datetime, timedelta
-from jose import jwt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-SECRET_KEY = "supersecretkey"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+def hash_password(password: str) -> str:
+    # passlib expects a text string; trim and limit to 72 chars (bcrypt limit)
+    pw = password.strip()
+    if len(pw) > 72:
+        pw = pw[:72]
+    return pwd_context.hash(pw)
 
-def create_access_token(data: dict):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    pw = plain_password.strip()
+    if len(pw) > 72:
+        pw = pw[:72]
+    return pwd_context.verify(pw, hashed_password)

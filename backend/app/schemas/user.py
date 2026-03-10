@@ -1,19 +1,14 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 class UserCreate(BaseModel):
     name: str
-    email: EmailStr
-    password_hash: str
-    role: str
-    is_verified: bool = False
-
+    email: str
+    password: str
 
 class UserResponse(BaseModel):
     id: int
     name: str
-    email: EmailStr
-    role: str
-    is_verified: bool
+    email: str
 
     class Config:
         orm_mode = True

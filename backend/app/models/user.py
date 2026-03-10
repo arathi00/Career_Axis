@@ -1,17 +1,23 @@
-from sqlalchemy import Column, Integer, String, JSON, Boolean
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 from app.database.base import Base
-
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-
     name = Column(String, nullable=False)
     email = Column(String, unique=True, index=True, nullable=False)
-    password = Column(String, nullable=False)
-    role = Column(String, nullable=False)  # student | trainer | admin
+    password_hash = Column(String, nullable=False)
+    role = Column(String, nullable=False, default="student")
 
-    academic_details = Column(JSON, nullable=True)
-    trainer_details = Column(JSON, nullable=True)
+    student_profile = relationship(
+        "StudentProfile",
+        back_populates="user",
+        uselist=False
+    )
 
-    is_approved = Column(Boolean, default=False)
+    resume = relationship(
+        "Resume",
+        back_populates="user",
+        uselist=False
+    )
