@@ -6,6 +6,7 @@ from app.database.base import Base
 from importlib import import_module
 from typing import List
 from app.routers import quiz
+from app.routers import admin_analytics
 
 
 # -------------------------
@@ -30,6 +31,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(quiz.router)
+app.include_router(admin_analytics.router)
 # -------------------------
 # Include Routers
 # -------------------------
