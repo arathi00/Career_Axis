@@ -14,8 +14,11 @@ dist-ssr/
 
 # Python
 __pycache__/
+**/__pycache__/
 *.pyc
+**/*.pyc
 *.pyo
+**/*.pyo
 
 # Virtual environments
 venv/
