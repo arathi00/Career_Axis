@@ -1,25 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from importlib import import_module
+from typing import List
 
 from app.database.session import engine
 from app.database.base import Base
-from importlib import import_module
-from typing import List
-from app.routers import quiz
-from app.routers import admin_analytics
-
 
 # -------------------------
-# Create FastAPI App FIRST
+# Create FastAPI App
 # -------------------------
 app = FastAPI(title="Career Axis API")
 
 # -------------------------
-# CORS Middleware (only once)
+# CORS Middleware
 # -------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Frontend origin
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,17 +27,16 @@ app.add_middleware(
 # -------------------------
 Base.metadata.create_all(bind=engine)
 
-app.include_router(quiz.router)
-app.include_router(admin_analytics.router)
 # -------------------------
 # Include Routers
 # -------------------------
 router_names: List[str] = [
     "auth",
     "admins",
-    "admin_quiz",  # Added this to the list
+    "admin_quiz",
+    "admin_analytics",
     "resumes",
-    "quizzes",
+    "quiz",
     "interviews",
     "chatbot",
     "dashboard",
@@ -51,11 +47,9 @@ for name in router_names:
         mod = import_module(f"app.routers.{name}")
         if hasattr(mod, "router"):
             app.include_router(mod.router)
-            print(f"✅ Loaded router: {name}")  
+            print(f"✅ Loaded router: {name}")
         else:
             print(f"⚠️ No router found in: {name}")
-    except ImportError as e:
-        print(f"❌ Failed to import {name}: {e}")
     except Exception as e:
         print(f"❌ Error loading {name}: {e}")
 
